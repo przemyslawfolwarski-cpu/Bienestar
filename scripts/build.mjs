@@ -10,7 +10,8 @@ const s = Object.fromEntries(data.sections.map(section => [section.id, section])
 const heading = section => `<h2 id="${section.id}-heading">${esc(section.heading)}<span class="heading-mark" aria-hidden="true"></span></h2>`;
 const header = `<header class="site-header"><div class="container"><a class="brand" href="/" aria-label="${esc(data.brand.name)}"><img src="/${data.brand.wordmark_asset}" width="325" height="120" alt="${esc(data.brand.name)}"></a><p class="brand-name">${esc(data.person.name)}</p></div></header>`;
 const contacts = line => esc(line).replace(/^Telefon:/, '<span class="footer-label">Telefon:</span>').replace(esc(data.person.phone_display), `<a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a>`);
-const footer = `<footer class="site-footer"><div class="container footer-grid">${Object.entries(data.footer).map(([name, lines]) => `<div class="footer-${name}">${lines.map(line=>`<p>${contacts(line)}</p>`).join('')}${name === 'right' ? '<p class="footer-reading"><a href="/czytelnia/">Czytelnia</a></p>' : ''}</div>`).join('')}</div></footer>`;
+const snippetFooterLines = new Set([data.person.name, data.person.title, data.person.public_location]);
+const footer = `<footer class="site-footer"><div class="container footer-grid">${Object.entries(data.footer).map(([name, lines]) => `<div class="footer-${name}">${lines.map(line=>`<p><span${snippetFooterLines.has(line) ? '' : ' data-nosnippet'}>${contacts(line)}</span></p>`).join('')}${name === 'right' ? '<p class="footer-reading"><span data-nosnippet><a href="/czytelnia/">Czytelnia</a></span></p>' : ''}</div>`).join('')}</div></footer>`;
 const document = (title, body, pathname = '/', {noindex = false, description = s['o-mojej-pracy'].text.split('. ')[0] + '.', article, articles} = {}) => `<!doctype html>
 <html lang="pl">
 <head>
@@ -73,7 +74,7 @@ const body = `<main id="main">
   ${heading(s.komfort)}<ul class="comfort-grid">${s.komfort.items.map((item,i)=>`<li><span class="comfort-icon icon-${i}" aria-hidden="true"></span><span class="small-mark" aria-hidden="true"></span><p>${esc(item)}</p></li>`).join('')}</ul>
 </section>
 </main>`;
-await writeFile(path.join(root, 'public/index.html'), document(`${data.brand.name} — ${data.person.name} — ${data.person.title}`, body));
+await writeFile(path.join(root, 'public/index.html'), document(`${data.person.name} · ${data.person.title}`, body));
 
 
 const articles = JSON.parse(await readFile(path.join(root, 'source/articles.json'), 'utf8')).filter(a => a.approved === true);

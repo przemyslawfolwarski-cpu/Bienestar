@@ -59,13 +59,21 @@ console.log('PASS: exact approved text and order, original photo and approved QR
 
 const articles = JSON.parse(await readFile(path.join(root,'source/articles.json'),'utf8'));
 const footer = html.match(/<footer[\s\S]*?<\/footer>/)[0];
+assert.ok(!footer.includes('class="container footer-grid" data-nosnippet'), 'Selected footer facts must remain available');
+for (const line of [source.person.name, source.person.title, source.person.public_location]) assert.ok(footer.includes(`<span>${line}</span>`), 'Approved homepage footer fact must remain available for snippets');
+assert.ok(footer.includes('<span data-nosnippet><span class="footer-label">Telefon:'), 'Contact details must be excluded from snippets');
+assert.equal((footer.match(/<span>/g)||[]).length,3,'Exactly three approved footer lines may be used in snippets');
+assert.ok(html.includes(`<title>${source.person.name} · ${source.person.title}</title>`), 'Approved homepage title');
 for (const article of articles) {
   const page = await readFile(path.join(root,'public/czytelnia',article.slug,'index.html'),'utf8');
-  assert.equal(page.match(/<footer[\s\S]*?<\/footer>/)[0], footer, 'Footer must be identical');
+  const articleFooter = page.match(/<footer[\s\S]*?<\/footer>/)[0];
+  assert.equal(articleFooter, footer, 'Footer content, layout and snippet rules must be identical');
   const text = clean(page.match(/<article>[\s\S]*?<\/article>/)[0]);
   assert.ok(text.endsWith([article.title,...article.paragraphs].join(' ')), 'Article content must be verbatim');
   assert.ok(!/[—–]/.test(article.title), 'Titles must not contain dashes');
   for (const m of page.matchAll(/href="(\/czytelnia\/[^"#]*)"/g)) await access(path.join(root,'public',m[1],'index.html'));
 }
 console.log(`PASS: ${articles.length} article texts, dates, navigation and shared footer.`);
+const readingPage = await readFile(path.join(root,'public/czytelnia/index.html'),'utf8');
+assert.equal(readingPage.match(/<footer[\s\S]*?<\/footer>/)[0],footer,'Reading-list footer must have identical snippet rules');
 await import('./check-structured-data.mjs');
