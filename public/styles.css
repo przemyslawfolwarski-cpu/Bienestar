@@ -14,6 +14,12 @@
 }
 :root {
   --paper: #f6f2e6;
+  --edge-width: clamp(60px, 6vw, 120px);
+  --page-background:
+    linear-gradient(to right, rgb(255 172 187 / 23%), transparent) left / var(--edge-width) 100% no-repeat,
+    linear-gradient(to left, rgb(153 229 186 / 23%), transparent) right / var(--edge-width) 100% no-repeat,
+    url("/assets/background/wall-speckles.svg") 0 0 / 768px 768px repeat,
+    var(--paper);
   --card: rgb(252 250 245 / 72%);
   --ink: #2c2520;
   --muted: #786b61;
@@ -39,11 +45,7 @@
 html { scroll-padding-top: calc(var(--header-height) + var(--space-sm)); }
 * { box-sizing: border-box; }
 body {
-  background:
-    radial-gradient(ellipse at 0% 12%, rgb(255 172 187 / 23%), transparent 32%),
-    radial-gradient(ellipse at 100% 12%, rgb(153 229 186 / 23%), transparent 32%),
-    radial-gradient(ellipse at 0% 75%, rgb(249 205 145 / 16%), transparent 30%),
-    radial-gradient(ellipse at 100% 70%, rgb(249 205 145 / 14%), transparent 30%);
+  background: var(--page-background);
   margin: 0; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.5; }
 
 img { display: block; max-width: 100%; }
@@ -55,7 +57,7 @@ a:hover { text-decoration: underline; text-underline-offset: .18em; }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
 .container { width: 87%; max-width: 1440px; margin-inline: auto; }
 /* Shared pastel light fades toward the neutral center. */
-.site-header { position: sticky; top: 0; z-index: 10; isolation: isolate; background: linear-gradient(90deg, #fce8eb 0%, var(--paper) 34%, var(--paper) 66%, #e8f5eb 100%); }
+.site-header { position: sticky; top: 0; z-index: 10; isolation: isolate; background: var(--page-background); }
 .site-header .container { height: var(--header-height); padding-block: 4px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; }
 .brand { display: block; width: 135px; }
 .brand img { width: 100%; height: auto; mix-blend-mode: darken; }
@@ -135,7 +137,7 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
   .footer-grid > .footer-right { grid-column: 1 / -1; border-left: 0; padding-inline: 0; }
 }
 @media (max-width: 700px) {
-  :root { --header-height: 66px; --space-section: 48px; --space-heading: 24px; --space-item: 20px; --tile-padding: 24px 18px; --tile-height: 210px; }
+  :root { --edge-width: min(22vw, 90px); --header-height: 66px; --space-section: 48px; --space-heading: 24px; --space-item: 20px; --tile-padding: 24px 18px; --tile-height: 210px; }
   body { font-size: 20px; }
   .container { width: calc(100% - 40px); }
   .brand { width: 110px; }
@@ -177,20 +179,3 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
 }
 
 
-/* Desktop pastel light is capped in pixels, outside the neutral reading area. */
-@media (min-width: 701px) {
-  :root { --edge-width: clamp(60px, 6vw, 120px); }
-  body {
-    background:
-      radial-gradient(ellipse var(--edge-width) 1600px at 0% 12%, rgb(255 172 187 / 23%), transparent 100%),
-      radial-gradient(ellipse var(--edge-width) 1600px at 100% 12%, rgb(153 229 186 / 23%), transparent 100%),
-      radial-gradient(ellipse var(--edge-width) 1600px at 0% 75%, rgb(249 205 145 / 16%), transparent 100%),
-      radial-gradient(ellipse var(--edge-width) 1600px at 100% 70%, rgb(249 205 145 / 14%), transparent 100%);
-  }
-  .site-header {
-    background:
-      linear-gradient(to right, #f8e1e3, transparent) left / var(--edge-width) 100% no-repeat,
-      linear-gradient(to left, #e3eedf, transparent) right / var(--edge-width) 100% no-repeat,
-      var(--paper);
-  }
-}

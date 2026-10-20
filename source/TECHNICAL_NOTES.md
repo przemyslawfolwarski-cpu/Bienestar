@@ -28,3 +28,7 @@ Approved correction reduces global typography, foundation/organization and comfo
 ## Background and domain follow-up
 
 The neutral paper color #f6f2e6 is sampled from the light wall in the user's supplied photo. On desktop, pastel gradients are capped at 120px from each viewport edge; mobile retains its approved gradient geometry. The original portrait file is unchanged. The user requested disabling public pages.dev access only after their purchased custom domain is connected. No domain has been selected yet. Blog/news content remains deferred.
+
+## Continuous wall background
+
+The user approved recreating the fine speckles of the portrait wall without its unique cast shadow. A deterministic SVG contains only small, low-opacity wall speckles. Body and opaque sticky header share the same background definition. Pink and mint edge washes vary only horizontally, remain constant down the entire document, and fade completely within the capped edge width. No portrait pixels were changed. This replaces the earlier vertical radial gradients.
