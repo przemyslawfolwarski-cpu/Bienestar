@@ -38,3 +38,7 @@ The user approved recreating the fine speckles of the portrait wall without its 
 The user explicitly approved replacing the original QR to remove their email. Current public HTML, source content, vCard and QR contain no email. The new deterministic SVG QR encodes the exact UTF-8 vCard bytes (name and phone only) with high error correction. Its center embeds the untouched original JPEG, proportionally scaled and clipped to the face. The rendered mobile QR was decoded and matched byte-for-byte to the vCard and the browser download. The old PNG is removed from the current published tree. Prior Git/deployment history is not rewritten.
 
 The contact section centers the phone over the noninteractive QR. ZESKANUJ appears above a separate ZAPISZ KONTAKT download link with a small pointing-hand glyph from Linux Libertine.
+
+## Contact opening limitation
+
+The pointer is a separate, absolutely positioned SVG outside the anchor, so it cannot shift the centered label or act as a link. Its path is the existing Linux Libertine pointing-hand glyph. The link no longer has download; the vCard is served as text/vcard with Content-Disposition inline. This requests native handling without forcing download, but does not guarantee the same UI as a QR scanner. Android Chrome can still download a vCard; browsers do not provide universal direct contact creation. Android intent links are constrained to BROWSABLE activities; the AOSP contact editor does not advertise that category. Do not claim exact native equivalence based only on matching payloads.

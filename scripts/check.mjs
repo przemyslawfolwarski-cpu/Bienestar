@@ -34,6 +34,8 @@ assert.equal((html.match(/<h1\b/g)||[]).length, 1);
 assert.ok(!/mailto:|gmail\.com|>E-mail</i.test(html), 'Email must not be published in homepage HTML');
 assert.ok(!/<a[^>]*>\s*<img[^>]*qr_vcard/.test(html), 'QR image must not be a link');
 assert.ok(html.includes('class="save-contact"'), 'The separate save-contact link is required');
+assert.ok(!/\bdownload(?:[\s=>])/.test(html), 'Do not force a contact download');
+assert.ok(!/<a[^>]*>[^<]*<img class="contact-pointer"/.test(html), 'Pointer must be outside the link');
 assert.ok(!/EMAIL:|@/.test(await readFile(path.join(root,'public/assets/contact/przemyslaw_folwarski.vcf'),'utf8')), 'vCard must not publish an email');
 assert.ok(html.includes('lang="pl"'));
 assert.ok(html.includes('name="viewport"'));

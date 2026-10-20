@@ -193,5 +193,6 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
 .contact dl { text-align: center; }
 .qr-wrap { width: 220px; max-width: 100%; padding: 0; border: 0; }
 .qr-caption { margin-top: 12px; text-align: center; color: var(--muted); font-size: 14px; line-height: 1.35; letter-spacing: .08em; }
-.qr-wrap .save-contact { display: inline-flex; align-items: center; justify-content: center; margin-top: 8px; font-size: 14px; text-decoration: underline; text-underline-offset: .2em; }
-.save-contact::before { content: "\261E"; font-size: 20px; line-height: 1; margin-right: 8px; }
+.save-contact-row { display: table; position: relative; margin: 8px auto 0; }
+.qr-wrap .save-contact { display: inline-block; margin: 0; font-size: 14px; text-decoration: underline; text-underline-offset: .2em; }
+.qr-wrap .contact-pointer { position: absolute; right: calc(100% + 8px); top: 50%; transform: translateY(-50%); width: 20px; height: 20px; pointer-events: none; }
