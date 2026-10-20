@@ -85,10 +85,7 @@
       "qr_asset": "assets/contact/qr_vcard_przemyslaw.svg",
       "vcard_asset": "assets/contact/przemyslaw_folwarski.vcf",
       "scan_label": "ZESKANUJ",
-      "save_label": "ZAPISZ KONTAKT",
-      "copy_label": "Kopiuj numer",
-      "copy_success": "Skopiowano",
-      "copy_fallback": "Przytrzymaj numer i wybierz Kopiuj."
+      "save_label": "ZAPISZ KONTAKT"
     },
     {
       "id": "komfort",

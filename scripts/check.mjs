@@ -25,7 +25,7 @@ for (const section of source.sections) {
       }
     }
     if (section.first_meetings) expected.push(section.first_meetings.heading, section.first_meetings.text);
-    if (section.id === 'kontakt') expected.push('Telefon',source.person.phone_display,section.copy_label,section.scan_label,section.save_label);
+    if (section.id === 'kontakt') expected.push('Telefon',source.person.phone_display,section.scan_label,section.save_label);
   }
 }
 expected.push(...Object.values(source.footer).flat());
@@ -39,9 +39,8 @@ assert.ok(!/<a[^>]*>[^<]*<img class="contact-pointer"/.test(html), 'Pointer must
 assert.ok(!/EMAIL:|@/.test(await readFile(path.join(root,'public/assets/contact/przemyslaw_folwarski.vcf'),'utf8')), 'vCard must not publish an email');
 assert.ok(html.includes('lang="pl"'));
 assert.ok(html.includes('name="viewport"'));
-assert.equal((html.match(/<script\b/g)||[]).length, 1);
-assert.ok(html.includes('<script src="/contact.js" defer></script>'));
-assert.ok(html.includes('class="copy-controls" hidden'), 'Without JS, do not show an inactive copy button');
+assert.ok(!/<script\b/.test(html));
+assert.ok(!/copy-controls|copy-number|Kopiuj numer/.test(html));
 for (const href of [source.person.phone_href]) assert.ok(html.includes(`href="${href}"`));
 for (const match of html.matchAll(/(?:src|href)="(\/[^"#]*)"/g)) {
   if (match[1] !== '/') await access(path.join(root, 'public', match[1]));
@@ -56,4 +55,4 @@ for (const [file, sha] of Object.entries(originals)) {
 assert.ok(!/(?<![\w-])(?:filter|mix-blend-mode|mask-image)\s*:/.test(css.replace(/\.brand img\s*\{[^}]*\}/g, '')),'Image-altering CSS is prohibited outside the approved wordmark');
 assert.deepEqual([...css.matchAll(/font-family:\s*([^;]+);/g)].map(m=>m[1]),Array(3).fill('"Linux Libertine"'));
 assert.ok(!/blog|aktualnoĹ›ci|przykĹ‚adowy artykuĹ‚/i.test(actual));
-console.log('PASS: exact approved text and order, original photo and approved QR SHA-256, links/assets, Linux Libertine, progressive copy action and no visible articles.');
+console.log('PASS: exact approved text and order, original photo and approved QR SHA-256, links/assets, Linux Libertine, no copy action or visible articles.');
