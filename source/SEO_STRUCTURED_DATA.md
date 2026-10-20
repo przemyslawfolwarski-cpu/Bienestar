@@ -33,3 +33,10 @@ Dane pomagają wyszukiwarce rozumieć stronę. Nie gwarantują pozycji, indeksac
 ## Ikonka
 
 Favicon jest osobną, zatwierdzoną zmianą. Litera B została wycięta z obecnego wordmarku. ICO 16/32/48 px oraz PNG 192 i apple-touch-icon 180 px są podłączone na wszystkich podstronach. Oryginalny wordmark i zdjęcie pozostają nietknięte.
+
+## Wynik kontroli opublikowanej wersji, 20.10.2026
+
+Google Rich Results Test: https://search.google.com/test/rich-results/result?id=9TCsepbkwCLGv56lyGUoBg . Wpis Trigger ma 1 prawidłowy element Article/BlogPosting i 3 niekrytyczne zalecenia: brak opcjonalnego image oraz pełnej godziny/strefy czasowej datePublished. Schema.org dopuszcza Date lub DateTime (https://schema.org/datePublished), ale test Google oczekuje pełnego DateTime. Zachowujemy znaną datę, bez wymyślania godziny. Nie dodajemy przypadkowych ilustracji do zatwierdzonych wpisów.
+
+Sprawdzono HTTP 200 i JSON-LD na wszystkich 11 stronach głównej domeny, poprawne typy plików ikon. Search Console potwierdza indeksowanie strony głównej, Czytelni i sprawdzonego przykładowo wpisu Trigger. Mapa witryny ma stan Sukces i 11 wykrytych adresów; nie jest to dowód indeksacji wszystkich 11 adresów. Pełny raport zbiorczy Google nadal przetwarza dane.
+
