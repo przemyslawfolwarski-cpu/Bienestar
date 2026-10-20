@@ -88,7 +88,7 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
 .foundation-grid li, .organization-strip li { height: var(--tile-height); padding: var(--tile-padding); display: grid; grid-template-rows: 1.5px 1fr; row-gap: var(--space-item); justify-items: center; text-align: center; }
 .foundation-grid p, .organization-strip p { align-self: center; }
 .foundation-grid li { height: auto; min-height: 160px; padding: 18px 20px; row-gap: 12px; }
-.foundation-grid, .organization-strip { font-size: clamp(18px, 1.5vw, 22px); line-height: 1.35; }
+.foundation-grid, .organization-strip { font-size: inherit; line-height: 1.35; }
 .organization-strip li { height: auto; min-height: 150px; padding: 18px 20px; row-gap: 12px; }
 .offer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
 .offer-card { font-size: clamp(20px, 1.85vw, 30px); line-height: 1.35; min-height: 290px; padding: 38px 24px; text-align: center; display: grid; grid-template-rows: auto auto 1fr auto; justify-items: center; }
@@ -170,7 +170,7 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
   .qr-wrap a { max-width: 220px; }
   .comfort-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
   .comfort-grid li { padding: 18px 12px; }
-  .comfort-grid p { font-size: 18px; }
+  .comfort-grid p { font-size: inherit; }
   .footer-grid { display: block; }
   .footer-grid > div { padding: 0; }
   .footer-grid > div + div { border-left: 0; border-top: 1px solid var(--line); padding-top: 24px; margin-top: 24px; }
