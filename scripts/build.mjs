@@ -8,7 +8,7 @@ const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&
 const s = Object.fromEntries(data.sections.map(section => [section.id, section]));
 const heading = section => `<h2 id="${section.id}-heading">${esc(section.heading)}<span class="heading-mark" aria-hidden="true"></span></h2>`;
 const header = `<header class="site-header"><div class="container"><a class="brand" href="/" aria-label="${esc(data.brand.name)}"><img src="/${data.brand.wordmark_asset}" width="325" height="120" alt="${esc(data.brand.name)}"></a><p class="brand-name">${esc(data.person.name)}</p></div></header>`;
-const contacts = line => esc(line).replace(esc(data.person.phone_display), `<a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a>`).replace(esc(data.person.email), `<a href="${data.person.email_href}">${esc(data.person.email)}</a>`);
+const contacts = line => esc(line).replace(esc(data.person.phone_display), `<a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a>`);
 const footer = `<footer class="site-footer"><div class="container footer-grid">${Object.entries(data.footer).map(([name, lines]) => `<div class="footer-${name}">${lines.map(line=>`<p>${contacts(line)}</p>`).join('')}</div>`).join('')}</div></footer>`;
 const document = (title, body) => `<!doctype html>
 <html lang="pl">
@@ -45,7 +45,7 @@ const body = `<main id="main">
   <section id="pierwsze-spotkania" class="first-meetings" aria-labelledby="pierwsze-spotkania-heading">${heading({...s.oferta.first_meetings,id:'pierwsze-spotkania'})}<p>${esc(s.oferta.first_meetings.text)}</p></section>
 </section>
 <section id="kontakt" class="section container contact" aria-labelledby="kontakt-heading">
-  ${heading(s.kontakt)}<div class="contact-grid"><dl><div><dt>Telefon</dt><dd><a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a></dd></div><div><dt>E-mail</dt><dd><a href="${data.person.email_href}">${esc(data.person.email)}</a></dd></div></dl><div class="qr-wrap"><a href="/${s.kontakt.vcard_asset}" download><img src="/${s.kontakt.qr_asset}" width="1314" height="1314" alt="vCard — ${esc(data.person.name)}" loading="lazy"></a></div></div>
+  ${heading(s.kontakt)}<div class="contact-grid"><dl><div><dt>Telefon</dt><dd><a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a></dd></div></dl><div class="qr-wrap"><img src="/${s.kontakt.qr_asset}" width="1314" height="1314" alt="vCard — ${esc(data.person.name)}" loading="lazy"><div class="qr-caption"><p>${esc(s.kontakt.scan_label)}</p><a class="save-contact" href="/${s.kontakt.vcard_asset}" download>${esc(s.kontakt.save_label)}</a></div></div></div>
 </section>
 <section id="komfort" class="section container comfort" aria-labelledby="komfort-heading">
   ${heading(s.komfort)}<ul class="comfort-grid">${s.komfort.items.map((item,i)=>`<li><span class="comfort-icon icon-${i}" aria-hidden="true"></span><span class="small-mark" aria-hidden="true"></span><p>${esc(item)}</p></li>`).join('')}</ul>

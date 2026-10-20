@@ -32,3 +32,9 @@ The neutral paper color #f6f2e6 is sampled from the light wall in the user's sup
 ## Continuous wall background
 
 The user approved recreating the fine speckles of the portrait wall without its unique cast shadow. A deterministic SVG contains only small, low-opacity wall speckles. Body and opaque sticky header share the same background definition. Pink and mint edge washes vary only horizontally, remain constant down the entire document, and fade completely within the capped edge width. No portrait pixels were changed. This replaces the earlier vertical radial gradients.
+
+## Contact privacy update
+
+The user explicitly approved replacing the original QR to remove their email. Current public HTML, source content, vCard and QR contain no email. The new deterministic SVG QR encodes the exact UTF-8 vCard bytes (name and phone only) with high error correction. Its center embeds the untouched original JPEG, proportionally scaled and clipped to the face. The rendered mobile QR was decoded and matched byte-for-byte to the vCard and the browser download. The old PNG is removed from the current published tree. Prior Git/deployment history is not rewritten.
+
+The contact section centers the phone over the noninteractive QR. ZESKANUJ appears above a separate ZAPISZ KONTAKT download link with a small pointing-hand glyph from Linux Libertine.

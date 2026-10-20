@@ -25,22 +25,26 @@ for (const section of source.sections) {
       }
     }
     if (section.first_meetings) expected.push(section.first_meetings.heading, section.first_meetings.text);
-    if (section.id === 'kontakt') expected.push('Telefon',source.person.phone_display,'E-mail',source.person.email);
+    if (section.id === 'kontakt') expected.push('Telefon',source.person.phone_display,section.scan_label,section.save_label);
   }
 }
 expected.push(...Object.values(source.footer).flat());
 assert.equal(actual, expected.join(' '), 'Published text or order differs from approved content');
 assert.equal((html.match(/<h1\b/g)||[]).length, 1);
+assert.ok(!/mailto:|gmail\.com|>E-mail</i.test(html), 'Email must not be published in homepage HTML');
+assert.ok(!/<a[^>]*>\s*<img[^>]*qr_vcard/.test(html), 'QR image must not be a link');
+assert.ok(html.includes('class="save-contact"'), 'The separate save-contact link is required');
+assert.ok(!/EMAIL:|@/.test(await readFile(path.join(root,'public/assets/contact/przemyslaw_folwarski.vcf'),'utf8')), 'vCard must not publish an email');
 assert.ok(html.includes('lang="pl"'));
 assert.ok(html.includes('name="viewport"'));
 assert.ok(!/<script\b/.test(html), 'Homepage should work without JavaScript');
-for (const href of [source.person.phone_href,source.person.email_href]) assert.ok(html.includes(`href="${href}"`));
+for (const href of [source.person.phone_href]) assert.ok(html.includes(`href="${href}"`));
 for (const match of html.matchAll(/(?:src|href)="(\/[^"#]*)"/g)) {
   if (match[1] !== '/') await access(path.join(root, 'public', match[1]));
 }
 const originals = {
   'assets/photo/przemyslaw_folwarski_kolor.jpg':'97fafb64c8793003ad56add5853a662403e5165983ca577025e9b00b74ede468',
-  'assets/contact/qr_vcard_przemyslaw.png':'03935bad55d2ce9820224524b65af327bd50e9f9fd98a0af0d45e59840d6b903'
+  'assets/contact/qr_vcard_przemyslaw.svg':'3ca6607f6ddfb8f942a74b9c42b271e70aa5cf60afaafa23506d40df372e586f'
 };
 for (const [file, sha] of Object.entries(originals)) {
   assert.equal(createHash('sha256').update(await readFile(path.join(root,'public',file))).digest('hex'),sha,`Original asset modified: ${file}`);
@@ -48,4 +52,4 @@ for (const [file, sha] of Object.entries(originals)) {
 assert.ok(!/(?<![\w-])(?:filter|mix-blend-mode|mask-image)\s*:/.test(css.replace(/\.brand img\s*\{[^}]*\}/g, '')),'Image-altering CSS is prohibited outside the approved wordmark');
 assert.deepEqual([...css.matchAll(/font-family:\s*([^;]+);/g)].map(m=>m[1]),Array(3).fill('"Linux Libertine"'));
 assert.ok(!/blog|aktualnoĹ›ci|przykĹ‚adowy artykuĹ‚/i.test(actual));
-console.log('PASS: exact approved text and order, original photo/QR SHA-256, links/assets, Linux Libertine, no scripts or visible articles.');
+console.log('PASS: exact approved text and order, original photo and approved QR SHA-256, links/assets, Linux Libertine, no scripts or visible articles.');

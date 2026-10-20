@@ -8,8 +8,6 @@
     "title": "Psycholog",
     "phone_display": "+48 570 027 154",
     "phone_href": "tel:+48570027154",
-    "email": "przemyslawfolwarski@gmail.com",
-    "email_href": "mailto:przemyslawfolwarski@gmail.com",
     "nip": "125 157 18 64",
     "bank_account": "80 1140 2004 0000 3702 8442 1495",
     "public_location": "Warszawa · spotkania online"
@@ -64,8 +62,17 @@
       "id": "oferta",
       "heading": "Oferta",
       "items": [
-        {"name": "Konsultacja", "duration": "50 min", "price": "200 zł"},
-        {"name": "Sesja indywidualna", "subtitle": "Kontynuacja", "duration": "50 min", "price": "200 zł"}
+        {
+          "name": "Konsultacja",
+          "duration": "50 min",
+          "price": "200 zł"
+        },
+        {
+          "name": "Sesja indywidualna",
+          "subtitle": "Kontynuacja",
+          "duration": "50 min",
+          "price": "200 zł"
+        }
       ],
       "first_meetings": {
         "heading": "Pierwsze spotkania",
@@ -75,8 +82,10 @@
     {
       "id": "kontakt",
       "heading": "Kontakt",
-      "qr_asset": "assets/contact/qr_vcard_przemyslaw.png",
-      "vcard_asset": "assets/contact/przemyslaw_folwarski.vcf"
+      "qr_asset": "assets/contact/qr_vcard_przemyslaw.svg",
+      "vcard_asset": "assets/contact/przemyslaw_folwarski.vcf",
+      "scan_label": "ZESKANUJ",
+      "save_label": "ZAPISZ KONTAKT"
     },
     {
       "id": "komfort",
@@ -97,7 +106,7 @@
       "Członek Polskiego Towarzystwa Psychologicznego"
     ],
     "middle": [
-      "+48 570 027 154 · przemyslawfolwarski@gmail.com",
+      "+48 570 027 154",
       "NIP: 125 157 18 64 · Nr rachunku: 80 1140 2004 0000 3702 8442 1495"
     ],
     "right": [

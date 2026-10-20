@@ -154,9 +154,8 @@ Pierwsze spotkania mają charakter konsultacji. To czas na poznanie się, rozmow
 
 **Telefon:** +48 570 027 154
 
-**E-mail:** przemyslawfolwarski@gmail.com
 
-**QR vCard:** `assets/contact/qr_vcard_przemyslaw.png`
+**QR vCard:** `assets/contact/qr_vcard_przemyslaw.svg`
 
 **vCard:** `assets/contact/przemyslaw_folwarski.vcf`
 
@@ -202,7 +201,7 @@ Członek Polskiego Towarzystwa Psychologicznego
 
 **Środkowa kolumna:**
 
-+48 570 027 154 · przemyslawfolwarski@gmail.com
++48 570 027 154
 
 NIP: 125 157 18 64 · Nr rachunku: 80 1140 2004 0000 3702 8442 1495
 
@@ -224,7 +223,6 @@ Warszawa · spotkania online
 ## Dane techniczne do linków
 
 - Telefon: `tel:+48570027154`
-- E-mail: `mailto:przemyslawfolwarski@gmail.com`
 - Numer rachunku: `80 1140 2004 0000 3702 8442 1495`
 - NIP: `125 157 18 64`
 - Lokalizacja komunikowana publicznie: `Warszawa · spotkania online`
