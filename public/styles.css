@@ -89,7 +89,7 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
 .foundation-grid p, .organization-strip p { align-self: center; }
 .foundation-grid li { height: auto; min-height: 160px; padding: 18px 20px; row-gap: 12px; }
 .foundation-grid, .organization-strip { font-size: clamp(18px, 1.5vw, 22px); line-height: 1.35; }
-.organization-strip li { height: 190px; }
+.organization-strip li { height: auto; min-height: 150px; padding: 18px 20px; row-gap: 12px; }
 .offer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
 .offer-card { font-size: clamp(20px, 1.85vw, 30px); line-height: 1.35; min-height: 290px; padding: 38px 24px; text-align: center; display: grid; grid-template-rows: auto auto 1fr auto; justify-items: center; }
 .offer-card h3 { font-size: clamp(29px, 2.6vw, 42px); margin-top: 36px; }
@@ -160,7 +160,7 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
   .foundation-grid { grid-template-columns: 1fr; }
   .foundation-grid li { min-height: 136px; padding: 16px 18px; }
   .organization-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-  .organization-strip li { height: 210px; padding: 16px 12px; row-gap: 16px; }
+  .organization-strip li { min-height: 160px; padding: 16px 12px; row-gap: 12px; }
   .offer-grid { grid-template-columns: 1fr; gap: 18px; }
   .offer-card { font-size: clamp(20px, 1.85vw, 30px); line-height: 1.35; min-height: 280px; padding-block: 30px; }
   .offer-card h3 { font-size: 31px; }
@@ -181,3 +181,9 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
 }
 
 
+
+/* On desktop, each text block starts at the same position below the mark. */
+@media (min-width: 701px) {
+  .foundation-grid li, .organization-strip li { row-gap: 28px; }
+  .foundation-grid p, .organization-strip p { align-self: start; }
+}
