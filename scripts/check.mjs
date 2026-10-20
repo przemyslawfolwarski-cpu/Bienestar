@@ -43,7 +43,7 @@ assert.ok(!/<script\b(?![^>]*type="application\/ld\+json")/.test(html), 'Only no
 assert.ok(!/copy-controls|copy-number|Kopiuj numer/.test(html));
 for (const href of [source.person.phone_href]) assert.ok(html.includes(`href="${href}"`));
 for (const match of html.matchAll(/(?:src|href)="(\/[^"#]*)"/g)) {
-  if (match[1] !== '/') await access(path.join(root, 'public', match[1]));
+  if (match[1] !== '/') await access(path.join(root, 'public', match[1].split('?')[0]));
 }
 const originals = {
   'assets/photo/przemyslaw_folwarski_kolor.jpg':'97fafb64c8793003ad56add5853a662403e5165983ca577025e9b00b74ede468',

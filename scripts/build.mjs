@@ -1,9 +1,11 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import {createHash} from 'node:crypto';
 import {siteOrigin, structuredData} from './structured-data.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
+const readingCssVersion = createHash('sha256').update(await readFile(path.join(root,'public/reading.css'))).digest('hex').slice(0,12);
 const data = JSON.parse(await readFile(path.join(root, 'source/site_content.json'), 'utf8'));
 const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const s = Object.fromEntries(data.sections.map(section => [section.id, section]));
@@ -40,7 +42,7 @@ const document = (title, body, pathname = '/', {noindex = false, description = s
   ${noindex ? '' : `<script type="application/ld+json">${structuredData({data,title,pathname,description,article,articles})}</script>`}
   <link rel="preload" href="/assets/fonts/LinLibertine_R.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/reading.css">
+  <link rel="stylesheet" href="/reading.css?v=${readingCssVersion}">
 </head>
 <body${pathname.startsWith('/czytelnia/') ? ' class="reading-view"' : ''}>${header(pathname.startsWith('/czytelnia/'))}${body}${footer}</body>
 </html>
