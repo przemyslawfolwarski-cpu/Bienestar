@@ -200,3 +200,27 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
   .contact-grid { display: flex; flex-direction: column; align-items: center; gap: var(--space-md); max-width: none; }
   .contact dl { text-align: center; }
 }
+
+/* Approved contact reference: a unified left column and a framed QR on the right. */
+.contact-grid { position: relative; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; max-width: 1120px; margin-inline: auto; }
+.contact-grid::after { content: ""; position: absolute; top: 8px; bottom: 8px; left: 50%; width: 1px; background: var(--line); }
+.contact-copy { padding-block: 28px; }
+.contact-copy h2 { font-size: clamp(42px, 4.4vw, 64px); }
+.contact-copy .heading-mark { margin-bottom: 40px; }
+.contact-copy dd { font-size: clamp(28px, 2.8vw, 40px); }
+.qr-wrap { position: relative; width: 300px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); }
+.qr-caption { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; font-size: 15px; }
+@media (max-width: 1000px) and (min-width: 701px) {
+  .contact-grid { gap: 40px; }
+  .qr-wrap { width: 260px; padding: 16px; }
+}
+@media (max-width: 700px) {
+  .contact-grid { gap: 24px; }
+  .contact-copy { padding: 0; width: 100%; }
+  .contact-copy h2 { font-size: clamp(30px, 7.8vw, 40px); }
+  .contact-copy .heading-mark { margin-bottom: 24px; }
+  .contact-copy dd { font-size: clamp(24px, 5.65vw, 34px); }
+  .qr-wrap { width: 260px; padding: 16px; }
+  .contact-grid::after { display: none; }
+  .qr-caption { font-size: 14px; }
+}

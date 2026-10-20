@@ -45,7 +45,7 @@ const body = `<main id="main">
   <section id="pierwsze-spotkania" class="first-meetings" aria-labelledby="pierwsze-spotkania-heading">${heading({...s.oferta.first_meetings,id:'pierwsze-spotkania'})}<p>${esc(s.oferta.first_meetings.text)}</p></section>
 </section>
 <section id="kontakt" class="section container contact" aria-labelledby="kontakt-heading">
-  ${heading(s.kontakt)}<div class="contact-grid"><dl><div><dt>Telefon</dt><dd><a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a></dd></div></dl><div class="qr-wrap"><img src="/${s.kontakt.qr_asset}" width="1314" height="1314" alt="vCard — ${esc(data.person.name)}" loading="lazy"><div class="qr-caption"><p>${esc(s.kontakt.scan_label)}</p><p>${esc(s.kontakt.save_label)}</p></div></div></div>
+  <div class="contact-grid"><div class="contact-copy">${heading(s.kontakt)}<dl><div><dt>Telefon</dt><dd><a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a></dd></div></dl></div><div class="qr-wrap"><img src="/${s.kontakt.qr_asset}" width="650" height="650" alt="vCard — ${esc(data.person.name)}" loading="lazy"><div class="qr-caption"><p>${esc(s.kontakt.scan_label)}</p><p>${esc(s.kontakt.save_label)}</p></div></div></div>
 </section>
 <section id="komfort" class="section container comfort" aria-labelledby="komfort-heading">
   ${heading(s.komfort)}<ul class="comfort-grid">${s.komfort.items.map((item,i)=>`<li><span class="comfort-icon icon-${i}" aria-hidden="true"></span><span class="small-mark" aria-hidden="true"></span><p>${esc(item)}</p></li>`).join('')}</ul>
