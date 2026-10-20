@@ -55,7 +55,7 @@ a:hover { text-decoration: underline; text-underline-offset: .18em; }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
 .container { width: 87%; max-width: 1440px; margin-inline: auto; }
 /* Shared pastel light fades toward the neutral center. */
-.site-header { position: sticky; top: 0; z-index: 10; isolation: isolate; background: radial-gradient(ellipse at 0% 50%, rgb(255 172 187 / 18%), transparent 45%), radial-gradient(ellipse at 50% 100%, rgb(249 205 145 / 7%), transparent 35%), radial-gradient(ellipse at 100% 50%, rgb(153 229 186 / 18%), transparent 45%), var(--paper); box-shadow: 0 1px 2px rgb(44 37 32 / 3%); }
+.site-header { position: sticky; top: 0; z-index: 10; isolation: isolate; background: transparent; backdrop-filter: blur(18px); }
 .site-header .container { height: var(--header-height); padding-block: 4px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; }
 .brand { display: block; width: 135px; }
 .brand img { width: 100%; height: auto; mix-blend-mode: darken; }

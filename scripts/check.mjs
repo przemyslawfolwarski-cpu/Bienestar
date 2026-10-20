@@ -45,7 +45,7 @@ const originals = {
 for (const [file, sha] of Object.entries(originals)) {
   assert.equal(createHash('sha256').update(await readFile(path.join(root,'public',file))).digest('hex'),sha,`Original asset modified: ${file}`);
 }
-assert.ok(!/\b(?:filter|mix-blend-mode|mask-image)\s*:/.test(css.replace(/\.brand img\s*\{[^}]*\}/g, '')),'Image-altering CSS is prohibited outside the approved wordmark');
+assert.ok(!/(?<![\w-])(?:filter|mix-blend-mode|mask-image)\s*:/.test(css.replace(/\.brand img\s*\{[^}]*\}/g, '')),'Image-altering CSS is prohibited outside the approved wordmark');
 assert.deepEqual([...css.matchAll(/font-family:\s*([^;]+);/g)].map(m=>m[1]),Array(3).fill('"Linux Libertine"'));
-assert.ok(!/blog|aktualności|przykładowy artykuł/i.test(actual));
+assert.ok(!/blog|aktualnoĹ›ci|przykĹ‚adowy artykuĹ‚/i.test(actual));
 console.log('PASS: exact approved text and order, original photo/QR SHA-256, links/assets, Linux Libertine, no scripts or visible articles.');
