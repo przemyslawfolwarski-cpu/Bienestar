@@ -1,0 +1,108 @@
+{
+  "brand": {
+    "name": "Bienestar",
+    "wordmark_asset": "assets/brand/bienestar_wordmark_rainbow.png"
+  },
+  "person": {
+    "name": "Przemysław Folwarski",
+    "title": "Psycholog",
+    "phone_display": "+48 570 027 154",
+    "phone_href": "tel:+48570027154",
+    "email": "przemyslawfolwarski@gmail.com",
+    "email_href": "mailto:przemyslawfolwarski@gmail.com",
+    "nip": "125 157 18 64",
+    "bank_account": "80 1140 2004 0000 3702 8442 1495",
+    "public_location": "Warszawa · spotkania online"
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "name": "Przemysław Folwarski",
+      "title": "Psycholog",
+      "photo": "assets/photo/przemyslaw_folwarski_kolor.jpg"
+    },
+    {
+      "id": "mozesz-przyjsc",
+      "heading": "Możesz przyjść, jeśli na przykład…",
+      "items": [
+        "Podczas rozmowy zdarza Ci się czuć, jakbyś nosił gorset.",
+        "Bywa, że przystajesz na coś, choć tak naprawdę tego nie chcesz.",
+        "Bierzesz na siebie więcej, niż naprawdę chcesz lub możesz.",
+        "Zdarza Ci się tracić pewność co do tego, co czujesz, czego potrzebujesz albo jak oceniasz sytuację.",
+        "Masz poczucie, że funkcjonujesz „poprawnie”, ale jakość Twojego życia nie jest taka, jakiej chcesz.",
+        "Chcesz uważniej przyjrzeć się sobie i wyraźniej rozpoznawać własne potrzeby, odczucia i wybory."
+      ]
+    },
+    {
+      "id": "o-mojej-pracy",
+      "heading": "O mojej pracy",
+      "text": "Jestem psychologiem z doświadczeniem w obszarze Zdalnej Opieki Psychologicznej. Jestem w trakcie całościowego, 4-letniego szkolenia psychoterapeutycznego w nurcie Gestalt i rozwijam własną praktykę. Jestem członkiem Polskiego Towarzystwa Psychologicznego, przestrzegam kodeksu etycznego psychologa i pozostaję w terapii własnej. Dbam o to, aby moja praca była prowadzona odpowiedzialnie i zgodnie ze standardami zawodu."
+    },
+    {
+      "id": "fundamenty",
+      "heading": "Na czym opieram moją pracę",
+      "items": [
+        "Wykształcenie psychologiczne",
+        "Członkostwo w Polskim Towarzystwie Psychologicznym",
+        "Przestrzeganie kodeksu etycznego psychologa",
+        "Spotkania są objęte tajemnicą zawodową",
+        "Analiza Transakcyjna",
+        "W trakcie całościowego, czteroletniego szkolenia psychoterapeutycznego w nurcie Gestalt"
+      ]
+    },
+    {
+      "id": "organizacja",
+      "heading": "Organizacja spotkań",
+      "items": [
+        "Dla osób dorosłych",
+        "Spotkania online",
+        "Bezpłatne odwołanie do 24 godzin przed spotkaniem",
+        "Płatność przelewem na konto"
+      ]
+    },
+    {
+      "id": "oferta",
+      "heading": "Oferta",
+      "items": [
+        {"name": "Konsultacja", "duration": "50 min", "price": "200 zł"},
+        {"name": "Sesja indywidualna", "subtitle": "Kontynuacja", "duration": "50 min", "price": "200 zł"}
+      ],
+      "first_meetings": {
+        "heading": "Pierwsze spotkania",
+        "text": "Pierwsze spotkania mają charakter konsultacji. To czas na poznanie się, rozmowę o tym, z czym przychodzisz, czego potrzebujesz i czego oczekujesz od naszej współpracy. Nie musisz mieć gotowego celu ani wiedzieć, od czego zacząć."
+      }
+    },
+    {
+      "id": "kontakt",
+      "heading": "Kontakt",
+      "qr_asset": "assets/contact/qr_vcard_przemyslaw.png",
+      "vcard_asset": "assets/contact/przemyslaw_folwarski.vcf"
+    },
+    {
+      "id": "komfort",
+      "heading": "Zadbaj o swój komfort podczas spotkania",
+      "items": [
+        "Stabilne łącze internetowe",
+        "Sprawna kamera i mikrofon",
+        "Spokojne miejsce do rozmowy",
+        "Warto mieć pod ręką notatnik i długopis"
+      ]
+    }
+  ],
+  "footer": {
+    "left": [
+      "Przemysław Folwarski",
+      "Psycholog",
+      "W trakcie całościowego, 4-letniego szkolenia psychoterapeutycznego w nurcie Gestalt",
+      "Członek Polskiego Towarzystwa Psychologicznego"
+    ],
+    "middle": [
+      "+48 570 027 154 · przemyslawfolwarski@gmail.com",
+      "NIP: 125 157 18 64 · Nr rachunku: 80 1140 2004 0000 3702 8442 1495"
+    ],
+    "right": [
+      "© 2026 Przemysław Folwarski",
+      "Warszawa · spotkania online"
+    ]
+  }
+}
