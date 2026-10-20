@@ -13,7 +13,7 @@
   font-display: swap;
 }
 :root {
-  --paper: #fcfaf5;
+  --paper: #f6f2e6;
   --card: rgb(252 250 245 / 72%);
   --ink: #2c2520;
   --muted: #786b61;
@@ -55,7 +55,7 @@ a:hover { text-decoration: underline; text-underline-offset: .18em; }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
 .container { width: 87%; max-width: 1440px; margin-inline: auto; }
 /* Shared pastel light fades toward the neutral center. */
-.site-header { position: sticky; top: 0; z-index: 10; isolation: isolate; background: linear-gradient(90deg, #fce8eb 0%, #fcfaf5 34%, #fcfaf5 66%, #e8f5eb 100%); }
+.site-header { position: sticky; top: 0; z-index: 10; isolation: isolate; background: linear-gradient(90deg, #fce8eb 0%, var(--paper) 34%, var(--paper) 66%, #e8f5eb 100%); }
 .site-header .container { height: var(--header-height); padding-block: 4px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; }
 .brand { display: block; width: 135px; }
 .brand img { width: 100%; height: auto; mix-blend-mode: darken; }
@@ -176,3 +176,21 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
   .comfort-grid { grid-template-columns: 1fr; }
 }
 
+
+/* Desktop pastel light is capped in pixels, outside the neutral reading area. */
+@media (min-width: 701px) {
+  :root { --edge-width: clamp(60px, 6vw, 120px); }
+  body {
+    background:
+      radial-gradient(ellipse var(--edge-width) 1600px at 0% 12%, rgb(255 172 187 / 23%), transparent 100%),
+      radial-gradient(ellipse var(--edge-width) 1600px at 100% 12%, rgb(153 229 186 / 23%), transparent 100%),
+      radial-gradient(ellipse var(--edge-width) 1600px at 0% 75%, rgb(249 205 145 / 16%), transparent 100%),
+      radial-gradient(ellipse var(--edge-width) 1600px at 100% 70%, rgb(249 205 145 / 14%), transparent 100%);
+  }
+  .site-header {
+    background:
+      linear-gradient(to right, #f8e1e3, transparent) left / var(--edge-width) 100% no-repeat,
+      linear-gradient(to left, #e3eedf, transparent) right / var(--edge-width) 100% no-repeat,
+      var(--paper);
+  }
+}

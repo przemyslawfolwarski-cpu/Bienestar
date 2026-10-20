@@ -24,3 +24,7 @@ Shared section/heading/item spacing replaces oversized pauses. Foundation and or
 ## Production correction, 2026-10-20
 
 Approved correction reduces global typography, foundation/organization and comfort card height, brightens the neutral paper and restores edge pastel light. Offer cards retain their original typography and geometry. The remaining two 4-letniego occurrences become czteroletniego. Global scroll padding follows the explicit header height plus a 16px clearance. Original photo, QR, icons and all other content are unchanged.
+
+## Background and domain follow-up
+
+The neutral paper color #f6f2e6 is sampled from the light wall in the user's supplied photo. On desktop, pastel gradients are capped at 120px from each viewport edge; mobile retains its approved gradient geometry. The original portrait file is unchanged. The user requested disabling public pages.dev access only after their purchased custom domain is connected. No domain has been selected yet. Blog/news content remains deferred.
