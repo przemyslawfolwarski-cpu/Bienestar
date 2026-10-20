@@ -11,12 +11,13 @@ const header = `<header class="site-header"><div class="container"><a class="bra
 const contacts = line => esc(line).replace(/^Telefon:/, '<span class="footer-label">Telefon:</span>').replace(esc(data.person.phone_display), `<a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a>`);
 const footer = `<footer class="site-footer"><div class="container footer-grid">${Object.entries(data.footer).map(([name, lines]) => `<div class="footer-${name}">${lines.map(line=>`<p>${contacts(line)}</p>`).join('')}${name === 'right' ? '<p class="footer-reading"><a href="/czytelnia/">Czytelnia</a></p>' : ''}</div>`).join('')}</div></footer>`;
 const siteOrigin = 'https://przemyslawfolwarski.pl';
-const document = (title, body, pathname = '/', {noindex = false} = {}) => `<!doctype html>
+const document = (title, body, pathname = '/', {noindex = false, description = s['o-mojej-pracy'].text.split('. ')[0] + '.'} = {}) => `<!doctype html>
 <html lang="pl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
+  ${!noindex && description ? `<meta name="description" content="${esc(description)}">` : ''}
   ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${siteOrigin}${pathname}">`}
   <link rel="preload" href="/assets/fonts/LinLibertine_R.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="/styles.css">
@@ -72,11 +73,11 @@ for (const [i, article] of articles.entries()) {
   const next = articles[i+1];
   const navigation = `<nav class="reading-nav">${previous ? `<a href="${articleLink(previous)}">← Poprzedni wpis</a>` : '<span></span>'}${next ? `<a href="${articleLink(next)}">Następny wpis →</a>` : ''}</nav>`;
   const articleBody = `<main class="container reading reading-article">${back}<article><time class="reading-date" datetime="${article.date}">${esc(dateLabel(article.date))}</time><h1>${esc(article.title)}</h1><p class="reading-lead">${esc(article.paragraphs[0])}</p><div class="reading-prose">${article.paragraphs.slice(1).map(p=>`<p>${esc(p)}</p>`).join('')}</div></article>${navigation}</main>`;
-  await writeFile(path.join(directory, 'index.html'), document(`${article.title} — ${data.brand.name}`, articleBody, articleLink(article)));
+  await writeFile(path.join(directory, 'index.html'), document(`${article.title} — ${data.brand.name}`, articleBody, articleLink(article), {description: article.paragraphs[0].length > 165 ? article.paragraphs[0].split('. ')[0] + '.' : article.paragraphs[0]}));
 }
 const entries = articles.map(a=>`<article class="reading-entry"><time class="reading-date" datetime="${a.date}">${esc(dateLabel(a.date))}</time><h2>${esc(a.title)}</h2><div class="reading-row"><p>${esc(a.paragraphs[0])}</p><a class="reading-more" href="${articleLink(a)}">Czytaj dalej　 →</a></div></article>`).join('');
 await mkdir(path.join(root,'public/czytelnia'),{recursive:true});
-await writeFile(path.join(root,'public/czytelnia/index.html'), document(`Czytelnia — ${data.brand.name}`, `<main class="container reading">${back}<h1>Czytelnia</h1><p class="reading-intro">Teksty o relacji ze sobą, emocjach, granicach<br>i codziennym funkcjonowaniu.</p><div class="reading-list">${entries}</div></main>`, '/czytelnia/'));
+await writeFile(path.join(root,'public/czytelnia/index.html'), document(`Czytelnia — ${data.brand.name}`, `<main class="container reading">${back}<h1>Czytelnia</h1><p class="reading-intro">Teksty o relacji ze sobą, emocjach, granicach<br>i codziennym funkcjonowaniu.</p><div class="reading-list">${entries}</div></main>`, '/czytelnia/', {description: 'Teksty o relacji ze sobą, emocjach, granicach i codziennym funkcjonowaniu.'}));
 console.log(`Built approved homepage and ${slugs.size} approved Czytelnia articles.`);
 
 const urls = ['/', '/czytelnia/', ...articles.map(articleLink)];
