@@ -87,6 +87,7 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
 .foundation-grid li, .organization-strip li, .offer-card, .comfort-grid li { border: 1px solid var(--line); border-radius: 16px; background: var(--card); }
 .foundation-grid li, .organization-strip li { height: var(--tile-height); padding: var(--tile-padding); display: grid; grid-template-rows: 1.5px 1fr; row-gap: var(--space-item); justify-items: center; text-align: center; }
 .foundation-grid p, .organization-strip p { align-self: center; }
+.foundation-grid li { height: auto; min-height: 160px; padding: 18px 20px; row-gap: 12px; }
 .foundation-grid, .organization-strip { font-size: clamp(18px, 1.5vw, 22px); line-height: 1.35; }
 .organization-strip li { height: 190px; }
 .offer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
@@ -157,6 +158,7 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
   .about .heading-mark { margin-block: var(--space-mark) var(--space-heading); }
   .about p { font-size: inherit; line-height: inherit; }
   .foundation-grid { grid-template-columns: 1fr; }
+  .foundation-grid li { min-height: 136px; padding: 16px 18px; }
   .organization-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
   .organization-strip li { height: 210px; padding: 16px 12px; row-gap: 16px; }
   .offer-grid { grid-template-columns: 1fr; gap: 18px; }
