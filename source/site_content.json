@@ -84,7 +84,7 @@
       "heading": "Kontakt",
       "qr_asset": "assets/contact/qr_vcard_przemyslaw.svg",
       "vcard_asset": "assets/contact/przemyslaw_folwarski.vcf",
-      "scan_label": "ZESKANUJ",
+      "scan_label": "ZESKANUJ LUB PRZYTRZYMAJ",
       "save_label": "ZAPISZ KONTAKT"
     },
     {
