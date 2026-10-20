@@ -8,7 +8,7 @@ const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&
 const s = Object.fromEntries(data.sections.map(section => [section.id, section]));
 const heading = section => `<h2 id="${section.id}-heading">${esc(section.heading)}<span class="heading-mark" aria-hidden="true"></span></h2>`;
 const header = `<header class="site-header"><div class="container"><a class="brand" href="/" aria-label="${esc(data.brand.name)}"><img src="/${data.brand.wordmark_asset}" width="325" height="120" alt="${esc(data.brand.name)}"></a><p class="brand-name">${esc(data.person.name)}</p></div></header>`;
-const contacts = line => esc(line).replace(esc(data.person.phone_display), `<a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a>`);
+const contacts = line => esc(line).replace(/^Telefon:/, '<span class="footer-label">Telefon:</span>').replace(esc(data.person.phone_display), `<a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a>`);
 const footer = `<footer class="site-footer"><div class="container footer-grid">${Object.entries(data.footer).map(([name, lines]) => `<div class="footer-${name}">${lines.map(line=>`<p>${contacts(line)}</p>`).join('')}${name === 'right' ? '<p class="footer-reading"><a href="/czytelnia/">Czytelnia</a></p>' : ''}</div>`).join('')}</div></footer>`;
 const document = (title, body) => `<!doctype html>
 <html lang="pl">

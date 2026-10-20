@@ -25,3 +25,5 @@
 @media (max-width: 700px) {
   .reading-article h1 { font-size: 30px; }
 }
+
+.footer-label { color: var(--muted); }
