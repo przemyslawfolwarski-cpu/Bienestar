@@ -27,3 +27,23 @@
 }
 
 .footer-label { color: var(--muted); }
+
+/* Approved permanent home links, confined to the reading list and articles. */
+.home-return-bar {display:flex;align-items:center;justify-content:center;min-height:48px;padding:8px 20px;color:var(--accent);font-size:21px;line-height:1.2;text-decoration:none;border-top:1px solid rgba(154,118,91,.14);border-bottom:1px solid rgba(154,118,91,.18);background:transparent}
+.home-return-bar:hover {text-decoration:underline;text-underline-offset:4px}
+.home-return-bar:focus-visible {outline:2px solid var(--accent);outline-offset:-4px}
+.side-home {position:fixed;left:0;top:calc(var(--header-height) + 48px);bottom:0;width:64px;z-index:9;display:flex;justify-content:center;align-items:center;text-decoration:none;color:var(--accent);border-right:1px solid rgba(154,118,91,.23)}
+.side-home span {writing-mode:vertical-rl;text-orientation:upright;font-size:20px;font-size:clamp(12px,calc((100svh - var(--header-height) - 48px)/18),20px);line-height:1.1;letter-spacing:.10em;word-spacing:.65em}
+.side-home:hover {background:rgba(255,255,255,.20)}
+.side-home:focus-visible {outline:2px solid var(--accent);outline-offset:-4px}
+@media(max-width:1160px){
+  .reading-view .reading,.reading-view .site-footer .container {margin-left:84px;width:calc(100% - 104px)}
+}
+@media(max-width:700px){
+  .home-return-bar {min-height:46px;font-size:20px}
+  .side-home {top:calc(var(--header-height) + 46px);width:44px}
+  .side-home span {font-size:16px;font-size:clamp(12px,calc((100svh - var(--header-height) - 46px)/18),16px);letter-spacing:.04em}
+  .reading-view .reading,.reading-view .site-footer .container {margin-left:56px;width:calc(100% - 68px);padding-inline:8px}
+  .reading-view .reading-nav {flex-wrap:wrap}
+  .reading-view .reading-nav a:last-child {margin-left:auto}
+}

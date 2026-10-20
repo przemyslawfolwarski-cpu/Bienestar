@@ -76,4 +76,10 @@ for (const article of articles) {
 console.log(`PASS: ${articles.length} article texts, dates, navigation and shared footer.`);
 const readingPage = await readFile(path.join(root,'public/czytelnia/index.html'),'utf8');
 assert.equal(readingPage.match(/<footer[\s\S]*?<\/footer>/)[0],footer,'Reading-list footer must have identical snippet rules');
+assert.ok(!html.includes('class="home-return-bar"')&&!html.includes('class="side-home"'),'Do not add reading navigation to homepage');
+for (const page of [readingPage,...await Promise.all(articles.map(a=>readFile(path.join(root,'public/czytelnia',a.slug,'index.html'),'utf8')))]) {
+  for (const name of ['home-return-bar','side-home']) assert.ok(page.includes(`class="${name}" href="https://przemyslawfolwarski.pl/"`),'Both permanent links must lead to the primary homepage');
+  assert.ok(page.includes('<body class="reading-view">'));
+  assert.ok(!page.includes('class="reading-back"'),'Remove duplicate inline home link');
+}
 await import('./check-structured-data.mjs');

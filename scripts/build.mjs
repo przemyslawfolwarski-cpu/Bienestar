@@ -8,7 +8,7 @@ const data = JSON.parse(await readFile(path.join(root, 'source/site_content.json
 const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const s = Object.fromEntries(data.sections.map(section => [section.id, section]));
 const heading = section => `<h2 id="${section.id}-heading">${esc(section.heading)}<span class="heading-mark" aria-hidden="true"></span></h2>`;
-const header = `<header class="site-header"><div class="container"><a class="brand" href="/" aria-label="${esc(data.brand.name)}"><img src="/${data.brand.wordmark_asset}" width="325" height="120" alt="${esc(data.brand.name)}"></a><p class="brand-name">${esc(data.person.name)}</p></div></header>`;
+const header = withReturn => `<header class="site-header"><div class="container"><a class="brand" href="/" aria-label="${esc(data.brand.name)}"><img src="/${data.brand.wordmark_asset}" width="325" height="120" alt="${esc(data.brand.name)}"></a><p class="brand-name">${esc(data.person.name)}</p></div>${withReturn ? `<a class="home-return-bar" href="${siteOrigin}/">← Strona główna</a>` : ''}</header>${withReturn ? `<a class="side-home" href="${siteOrigin}/" aria-label="Strona główna"><span aria-hidden="true">STRONA GŁÓWNA</span></a>` : ''}`;
 const contacts = line => esc(line).replace(/^Telefon:/, '<span class="footer-label">Telefon:</span>').replace(esc(data.person.phone_display), `<a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a>`);
 const snippetFooterLines = new Set([data.person.name, data.person.title, data.person.public_location]);
 const footer = `<footer class="site-footer"><div class="container footer-grid">${Object.entries(data.footer).map(([name, lines]) => `<div class="footer-${name}">${lines.map(line=>`<p><span${snippetFooterLines.has(line) ? '' : ' data-nosnippet'}>${contacts(line)}</span></p>`).join('')}${name === 'right' ? '<p class="footer-reading"><span data-nosnippet><a href="/czytelnia/">Czytelnia</a></span></p>' : ''}</div>`).join('')}</div></footer>`;
@@ -42,7 +42,7 @@ const document = (title, body, pathname = '/', {noindex = false, description = s
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/reading.css">
 </head>
-<body>${header}${body}${footer}</body>
+<body${pathname.startsWith('/czytelnia/') ? ' class="reading-view"' : ''}>${header(pathname.startsWith('/czytelnia/'))}${body}${footer}</body>
 </html>
 `;
 const listCards = (items, className) => `<ul class="${className}">${items.map(item=>`<li><span class="small-mark" aria-hidden="true"></span><p>${esc(item)}</p></li>`).join('')}</ul>`;
@@ -91,12 +91,12 @@ for (const [i, article] of articles.entries()) {
   const previous = articles[i-1];
   const next = articles[i+1];
   const navigation = `<nav class="reading-nav">${previous ? `<a href="${articleLink(previous)}">← Poprzedni wpis</a>` : '<span></span>'}${next ? `<a href="${articleLink(next)}">Następny wpis →</a>` : ''}</nav>`;
-  const articleBody = `<main class="container reading reading-article">${back}<article><time class="reading-date" datetime="${article.date}">${esc(dateLabel(article.date))}</time><h1>${esc(article.title)}</h1><p class="reading-lead">${esc(article.paragraphs[0])}</p><div class="reading-prose">${article.paragraphs.slice(1).map(p=>`<p>${esc(p)}</p>`).join('')}</div></article>${navigation}</main>`;
+  const articleBody = `<main class="container reading reading-article"><article><time class="reading-date" datetime="${article.date}">${esc(dateLabel(article.date))}</time><h1>${esc(article.title)}</h1><p class="reading-lead">${esc(article.paragraphs[0])}</p><div class="reading-prose">${article.paragraphs.slice(1).map(p=>`<p>${esc(p)}</p>`).join('')}</div></article>${navigation}</main>`;
   await writeFile(path.join(directory, 'index.html'), document(`${article.title} — ${data.brand.name}`, articleBody, articleLink(article), {article, description: article.paragraphs[0].length > 165 ? article.paragraphs[0].split('. ')[0] + '.' : article.paragraphs[0]}));
 }
 const entries = articles.map(a=>`<article class="reading-entry"><time class="reading-date" datetime="${a.date}">${esc(dateLabel(a.date))}</time><h2>${esc(a.title)}</h2><div class="reading-row"><p>${esc(a.paragraphs[0])}</p><a class="reading-more" href="${articleLink(a)}">Czytaj dalej　 →</a></div></article>`).join('');
 await mkdir(path.join(root,'public/czytelnia'),{recursive:true});
-await writeFile(path.join(root,'public/czytelnia/index.html'), document(`Czytelnia — ${data.brand.name}`, `<main class="container reading">${back}<h1>Czytelnia</h1><p class="reading-intro">Teksty o relacji ze sobą, emocjach, granicach<br>i codziennym funkcjonowaniu.</p><div class="reading-list">${entries}</div></main>`, '/czytelnia/', {articles, description: 'Teksty o relacji ze sobą, emocjach, granicach i codziennym funkcjonowaniu.'}));
+await writeFile(path.join(root,'public/czytelnia/index.html'), document(`Czytelnia — ${data.brand.name}`, `<main class="container reading"><h1>Czytelnia</h1><p class="reading-intro">Teksty o relacji ze sobą, emocjach, granicach<br>i codziennym funkcjonowaniu.</p><div class="reading-list">${entries}</div></main>`, '/czytelnia/', {articles, description: 'Teksty o relacji ze sobą, emocjach, granicach i codziennym funkcjonowaniu.'}));
 console.log(`Built approved homepage and ${slugs.size} approved Czytelnia articles.`);
 
 const urls = ['/', '/czytelnia/', ...articles.map(articleLink)];
