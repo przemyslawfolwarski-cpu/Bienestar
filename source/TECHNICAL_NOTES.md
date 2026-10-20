@@ -20,3 +20,7 @@ The user approved a compact centered sticky wordmark with their name below, no n
 
 Shared section/heading/item spacing replaces oversized pauses. Foundation and organization tiles use equal geometry. Offer dimensions stay unchanged; only the continuation subtitle moves up. The sole body-text correction is 4-letniego to czteroletniego in the last foundation tile. The supplied Linux Libertine OTF archive was verified against the installed regular font; its OFL license is included.
 
+
+## Production correction, 2026-10-20
+
+Approved correction reduces global typography, foundation/organization and comfort card height, brightens the neutral paper and restores edge pastel light. Offer cards retain their original typography and geometry. The remaining two 4-letniego occurrences become czteroletniego. Global scroll padding follows the explicit header height plus a 16px clearance. Original photo, QR, icons and all other content are unchanged.
