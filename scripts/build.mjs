@@ -22,6 +22,20 @@ const document = (title, body, pathname = '/', {noindex = false, description = s
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png" sizes="180x180">
   ${!noindex && description ? `<meta name="description" content="${esc(description)}">` : ''}
   ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${siteOrigin}${pathname}">`}
+  ${!noindex && pathname === '/' ? `<meta property="og:type" content="website">
+  <meta property="og:url" content="${siteOrigin}/">
+  <meta property="og:title" content="${esc(data.person.name)} · ${esc(data.person.title)}">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="${siteOrigin}/assets/brand/social-preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="${esc(data.brand.name)}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${esc(data.person.name)} · ${esc(data.person.title)}">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="${siteOrigin}/assets/brand/social-preview.png">
+  <meta name="twitter:image:alt" content="${esc(data.brand.name)}">` : ''}
   ${noindex ? '' : `<script type="application/ld+json">${structuredData({data,title,pathname,description,article,articles})}</script>`}
   <link rel="preload" href="/assets/fonts/LinLibertine_R.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="/styles.css">
