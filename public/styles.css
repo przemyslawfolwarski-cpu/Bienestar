@@ -188,9 +188,15 @@ h2 { font-size: clamp(36px, 3.5vw, 50px); }
   .foundation-grid p, .organization-strip p { align-self: start; }
 }
 
-/* Phone above a centered QR; only the explicit save label is interactive. */
-.contact-grid { display: flex; flex-direction: column; align-items: center; gap: var(--space-md); }
-.contact dl { text-align: center; }
-.qr-wrap { width: 220px; max-width: 100%; padding: 0; border: 0; }
+/* Phone and scan-only QR form a compact desktop row and stack on mobile. */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 1fr); align-items: center; gap: var(--space-lg); }
+.contact dl { text-align: left; }
+.qr-wrap { width: 220px; max-width: 100%; padding: 0; border: 0; justify-self: center; }
 .qr-caption { margin-top: 12px; text-align: center; color: var(--muted); font-size: 14px; line-height: 1.35; letter-spacing: .08em; }
 
+
+.qr-caption p + p { margin-top: 4px; }
+@media (max-width: 700px) {
+  .contact-grid { display: flex; flex-direction: column; align-items: center; gap: var(--space-md); max-width: none; }
+  .contact dl { text-align: center; }
+}

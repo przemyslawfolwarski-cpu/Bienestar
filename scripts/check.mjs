@@ -25,7 +25,7 @@ for (const section of source.sections) {
       }
     }
     if (section.first_meetings) expected.push(section.first_meetings.heading, section.first_meetings.text);
-    if (section.id === 'kontakt') expected.push('Telefon',source.person.phone_display,section.scan_label);
+    if (section.id === 'kontakt') expected.push('Telefon',source.person.phone_display,section.scan_label,section.save_label);
   }
 }
 expected.push(...Object.values(source.footer).flat());
