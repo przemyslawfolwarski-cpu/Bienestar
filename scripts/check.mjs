@@ -39,7 +39,7 @@ assert.ok(!/<a[^>]*>[^<]*<img class="contact-pointer"/.test(html), 'Pointer must
 assert.ok(!/EMAIL:|@/.test(await readFile(path.join(root,'public/assets/contact/przemyslaw_folwarski.vcf'),'utf8')), 'vCard must not publish an email');
 assert.ok(html.includes('lang="pl"'));
 assert.ok(html.includes('name="viewport"'));
-assert.ok(!/<script\b/.test(html));
+assert.ok(!/<script\b(?![^>]*type="application\/ld\+json")/.test(html), 'Only non-executable structured data scripts are allowed');
 assert.ok(!/copy-controls|copy-number|Kopiuj numer/.test(html));
 for (const href of [source.person.phone_href]) assert.ok(html.includes(`href="${href}"`));
 for (const match of html.matchAll(/(?:src|href)="(\/[^"#]*)"/g)) {
@@ -68,3 +68,4 @@ for (const article of articles) {
   for (const m of page.matchAll(/href="(\/czytelnia\/[^"#]*)"/g)) await access(path.join(root,'public',m[1],'index.html'));
 }
 console.log(`PASS: ${articles.length} article texts, dates, navigation and shared footer.`);
+await import('./check-structured-data.mjs');
