@@ -9,7 +9,7 @@ const s = Object.fromEntries(data.sections.map(section => [section.id, section])
 const heading = section => `<h2 id="${section.id}-heading">${esc(section.heading)}<span class="heading-mark" aria-hidden="true"></span></h2>`;
 const header = `<header class="site-header"><div class="container"><a class="brand" href="/" aria-label="${esc(data.brand.name)}"><img src="/${data.brand.wordmark_asset}" width="325" height="120" alt="${esc(data.brand.name)}"></a><p class="brand-name">${esc(data.person.name)}</p></div></header>`;
 const contacts = line => esc(line).replace(esc(data.person.phone_display), `<a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a>`);
-const footer = `<footer class="site-footer"><div class="container footer-grid">${Object.entries(data.footer).map(([name, lines]) => `<div class="footer-${name}">${lines.map(line=>`<p>${contacts(line)}</p>`).join('')}</div>`).join('')}</div></footer>`;
+const footer = `<footer class="site-footer"><div class="container footer-grid">${Object.entries(data.footer).map(([name, lines]) => `<div class="footer-${name}">${lines.map(line=>`<p>${contacts(line)}</p>`).join('')}${name === 'right' ? '<p class="footer-reading"><a href="/czytelnia/">Czytelnia</a></p>' : ''}</div>`).join('')}</div></footer>`;
 const document = (title, body) => `<!doctype html>
 <html lang="pl">
 <head>
@@ -18,6 +18,7 @@ const document = (title, body) => `<!doctype html>
   <title>${esc(title)}</title>
   <link rel="preload" href="/assets/fonts/LinLibertine_R.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/reading.css">
 </head>
 <body>${header}${body}${footer}</body>
 </html>
@@ -53,18 +54,25 @@ const body = `<main id="main">
 </main>`;
 await writeFile(path.join(root, 'public/index.html'), document(`${data.brand.name} — ${data.person.name} — ${data.person.title}`, body));
 
-// No article, navigation label or listing is produced while this collection is empty.
-// Publication requires explicit approval on each future entry, as well as its content.
-const articles = JSON.parse(await readFile(path.join(root, 'source/articles.json'), 'utf8'));
-if (!Array.isArray(articles)) throw new Error('articles.json must be an array');
+
+const articles = JSON.parse(await readFile(path.join(root, 'source/articles.json'), 'utf8')).filter(a => a.approved === true);
 const slugs = new Set();
-for (const article of articles) {
-  if (article.approved !== true) continue;
+const dateLabel = value => new Intl.DateTimeFormat('pl-PL', {day:'numeric', month:'long', year:'numeric', timeZone:'UTC'}).format(new Date(value + 'T12:00:00Z'));
+const back = '<a class="reading-back" href="/">← Strona główna</a>';
+const articleLink = a => `/czytelnia/${a.slug}/`;
+for (const [i, article] of articles.entries()) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug) || slugs.has(article.slug)) throw new Error('Invalid or duplicate approved article slug');
-  if (typeof article.title !== 'string' || !article.title.trim() || !Array.isArray(article.paragraphs) || !article.paragraphs.length || article.paragraphs.some(p => typeof p !== 'string' || !p.trim())) throw new Error('Incomplete approved article');
+  if (!article.title || !article.paragraphs?.length || !/^\d{4}-\d{2}-\d{2}$/.test(article.date)) throw new Error('Incomplete approved article');
   slugs.add(article.slug);
-  const directory = path.join(root, 'public/articles', article.slug);
+  const directory = path.join(root, 'public/czytelnia', article.slug);
   await mkdir(directory, {recursive:true});
-  await writeFile(path.join(directory, 'index.html'), document(`${article.title} — ${data.brand.name}`, `<main class="section container article"><article><h1>${esc(article.title)}</h1>${article.paragraphs.map(p=>`<p>${esc(p)}</p>`).join('')}</article></main>`));
+  const previous = articles[i-1];
+  const next = articles[i+1];
+  const navigation = `<nav class="reading-nav">${previous ? `<a href="${articleLink(previous)}">← Poprzedni wpis</a>` : '<span></span>'}${next ? `<a href="${articleLink(next)}">Następny wpis →</a>` : ''}</nav>`;
+  const articleBody = `<main class="container reading reading-article">${back}<article><time class="reading-date" datetime="${article.date}">${esc(dateLabel(article.date))}</time><h1>${esc(article.title)}</h1><p class="reading-lead">${esc(article.paragraphs[0])}</p><div class="reading-prose">${article.paragraphs.slice(1).map(p=>`<p>${esc(p)}</p>`).join('')}</div></article>${navigation}</main>`;
+  await writeFile(path.join(directory, 'index.html'), document(`${article.title} — ${data.brand.name}`, articleBody));
 }
-console.log(`Built approved homepage; ${slugs.size} approved articles.`);
+const entries = articles.map(a=>`<article class="reading-entry"><time class="reading-date" datetime="${a.date}">${esc(dateLabel(a.date))}</time><h2>${esc(a.title)}</h2><div class="reading-row"><p>${esc(a.paragraphs[0])}</p><a class="reading-more" href="${articleLink(a)}">Czytaj dalej　 →</a></div></article>`).join('');
+await mkdir(path.join(root,'public/czytelnia'),{recursive:true});
+await writeFile(path.join(root,'public/czytelnia/index.html'), document(`Czytelnia — ${data.brand.name}`, `<main class="container reading">${back}<h1>Czytelnia</h1><p class="reading-intro">Teksty o relacji ze sobą, emocjach, granicach<br>i codziennym funkcjonowaniu.</p><div class="reading-list">${entries}</div></main>`));
+console.log(`Built approved homepage and ${slugs.size} approved Czytelnia articles.`);

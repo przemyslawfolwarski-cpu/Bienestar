@@ -28,7 +28,7 @@ for (const section of source.sections) {
     if (section.id === 'kontakt') expected.push('Telefon',source.person.phone_display,section.scan_label,section.save_label);
   }
 }
-expected.push(...Object.values(source.footer).flat());
+expected.push(...Object.values(source.footer).flat(), 'Czytelnia');
 assert.equal(actual, expected.join(' '), 'Published text or order differs from approved content');
 assert.equal((html.match(/<h1\b/g)||[]).length, 1);
 assert.ok(!/mailto:|gmail\.com|>E-mail</i.test(html), 'Email must not be published in homepage HTML');
@@ -55,4 +55,16 @@ for (const [file, sha] of Object.entries(originals)) {
 assert.ok(!/(?<![\w-])(?:filter|mix-blend-mode|mask-image)\s*:/.test(css.replace(/\.brand img\s*\{[^}]*\}/g, '')),'Image-altering CSS is prohibited outside the approved wordmark');
 assert.deepEqual([...css.matchAll(/font-family:\s*([^;]+);/g)].map(m=>m[1]),Array(3).fill('"Linux Libertine"'));
 assert.ok(!/blog|aktualnoĹ›ci|przykĹ‚adowy artykuĹ‚/i.test(actual));
-console.log('PASS: exact approved text and order, original photo and approved QR SHA-256, links/assets, Linux Libertine, no copy action or visible articles.');
+console.log('PASS: exact approved text and order, original photo and approved QR SHA-256, links/assets, Linux Libertine, no copy action; approved Czytelnia.');
+
+const articles = JSON.parse(await readFile(path.join(root,'source/articles.json'),'utf8'));
+const footer = html.match(/<footer[\s\S]*?<\/footer>/)[0];
+for (const article of articles) {
+  const page = await readFile(path.join(root,'public/czytelnia',article.slug,'index.html'),'utf8');
+  assert.equal(page.match(/<footer[\s\S]*?<\/footer>/)[0], footer, 'Footer must be identical');
+  const text = clean(page.match(/<article>[\s\S]*?<\/article>/)[0]);
+  assert.ok(text.endsWith([article.title,...article.paragraphs].join(' ')), 'Article content must be verbatim');
+  assert.ok(!/[—–]/.test(article.title), 'Titles must not contain dashes');
+  for (const m of page.matchAll(/href="(\/czytelnia\/[^"#]*)"/g)) await access(path.join(root,'public',m[1],'index.html'));
+}
+console.log(`PASS: ${articles.length} article texts, dates, navigation and shared footer.`);
