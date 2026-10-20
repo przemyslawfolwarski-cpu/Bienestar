@@ -25,7 +25,7 @@ for (const section of source.sections) {
       }
     }
     if (section.first_meetings) expected.push(section.first_meetings.heading, section.first_meetings.text);
-    if (section.id === 'kontakt') expected.push('Telefon',source.person.phone_display,section.scan_label,section.save_label);
+    if (section.id === 'kontakt') expected.push('Telefon',source.person.phone_display,section.scan_label);
   }
 }
 expected.push(...Object.values(source.footer).flat());
@@ -33,7 +33,7 @@ assert.equal(actual, expected.join(' '), 'Published text or order differs from a
 assert.equal((html.match(/<h1\b/g)||[]).length, 1);
 assert.ok(!/mailto:|gmail\.com|>E-mail</i.test(html), 'Email must not be published in homepage HTML');
 assert.ok(!/<a[^>]*>\s*<img[^>]*qr_vcard/.test(html), 'QR image must not be a link');
-assert.ok(html.includes('class="save-contact"'), 'The separate save-contact link is required');
+assert.ok(!html.includes('class="save-contact"'), 'Save-contact link must be removed');
 assert.ok(!/\bdownload(?:[\s=>])/.test(html), 'Do not force a contact download');
 assert.ok(!/<a[^>]*>[^<]*<img class="contact-pointer"/.test(html), 'Pointer must be outside the link');
 assert.ok(!/EMAIL:|@/.test(await readFile(path.join(root,'public/assets/contact/przemyslaw_folwarski.vcf'),'utf8')), 'vCard must not publish an email');
