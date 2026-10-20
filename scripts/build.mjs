@@ -10,12 +10,14 @@ const heading = section => `<h2 id="${section.id}-heading">${esc(section.heading
 const header = `<header class="site-header"><div class="container"><a class="brand" href="/" aria-label="${esc(data.brand.name)}"><img src="/${data.brand.wordmark_asset}" width="325" height="120" alt="${esc(data.brand.name)}"></a><p class="brand-name">${esc(data.person.name)}</p></div></header>`;
 const contacts = line => esc(line).replace(/^Telefon:/, '<span class="footer-label">Telefon:</span>').replace(esc(data.person.phone_display), `<a href="${data.person.phone_href}">${esc(data.person.phone_display)}</a>`);
 const footer = `<footer class="site-footer"><div class="container footer-grid">${Object.entries(data.footer).map(([name, lines]) => `<div class="footer-${name}">${lines.map(line=>`<p>${contacts(line)}</p>`).join('')}${name === 'right' ? '<p class="footer-reading"><a href="/czytelnia/">Czytelnia</a></p>' : ''}</div>`).join('')}</div></footer>`;
-const document = (title, body) => `<!doctype html>
+const siteOrigin = 'https://przemyslawfolwarski.pl';
+const document = (title, body, pathname = '/', {noindex = false} = {}) => `<!doctype html>
 <html lang="pl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
+  ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${siteOrigin}${pathname}">`}
   <link rel="preload" href="/assets/fonts/LinLibertine_R.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/reading.css">
@@ -70,9 +72,14 @@ for (const [i, article] of articles.entries()) {
   const next = articles[i+1];
   const navigation = `<nav class="reading-nav">${previous ? `<a href="${articleLink(previous)}">← Poprzedni wpis</a>` : '<span></span>'}${next ? `<a href="${articleLink(next)}">Następny wpis →</a>` : ''}</nav>`;
   const articleBody = `<main class="container reading reading-article">${back}<article><time class="reading-date" datetime="${article.date}">${esc(dateLabel(article.date))}</time><h1>${esc(article.title)}</h1><p class="reading-lead">${esc(article.paragraphs[0])}</p><div class="reading-prose">${article.paragraphs.slice(1).map(p=>`<p>${esc(p)}</p>`).join('')}</div></article>${navigation}</main>`;
-  await writeFile(path.join(directory, 'index.html'), document(`${article.title} — ${data.brand.name}`, articleBody));
+  await writeFile(path.join(directory, 'index.html'), document(`${article.title} — ${data.brand.name}`, articleBody, articleLink(article)));
 }
 const entries = articles.map(a=>`<article class="reading-entry"><time class="reading-date" datetime="${a.date}">${esc(dateLabel(a.date))}</time><h2>${esc(a.title)}</h2><div class="reading-row"><p>${esc(a.paragraphs[0])}</p><a class="reading-more" href="${articleLink(a)}">Czytaj dalej　 →</a></div></article>`).join('');
 await mkdir(path.join(root,'public/czytelnia'),{recursive:true});
-await writeFile(path.join(root,'public/czytelnia/index.html'), document(`Czytelnia — ${data.brand.name}`, `<main class="container reading">${back}<h1>Czytelnia</h1><p class="reading-intro">Teksty o relacji ze sobą, emocjach, granicach<br>i codziennym funkcjonowaniu.</p><div class="reading-list">${entries}</div></main>`));
+await writeFile(path.join(root,'public/czytelnia/index.html'), document(`Czytelnia — ${data.brand.name}`, `<main class="container reading">${back}<h1>Czytelnia</h1><p class="reading-intro">Teksty o relacji ze sobą, emocjach, granicach<br>i codziennym funkcjonowaniu.</p><div class="reading-list">${entries}</div></main>`, '/czytelnia/'));
 console.log(`Built approved homepage and ${slugs.size} approved Czytelnia articles.`);
+
+const urls = ['/', '/czytelnia/', ...articles.map(articleLink)];
+await writeFile(path.join(root,'public/sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls.map(url=>`  <url><loc>${siteOrigin}${url}</loc></url>`).join('\n') + '\n</urlset>\n');
+await writeFile(path.join(root,'public/robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${siteOrigin}/sitemap.xml\n`);
+await writeFile(path.join(root,'public/404.html'), document('404', `<main class="container reading"><h1>404</h1>${back}</main>`, '/404.html', {noindex:true}));
