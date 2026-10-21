@@ -28,7 +28,7 @@ const document = (title, body, pathname = '/', {noindex = false, description = s
   ${!noindex && pathname === '/' ? `<meta property="og:type" content="website">
   <meta property="og:url" content="${siteOrigin}/">
   <meta property="og:title" content="${esc(data.person.name)} · ${esc(data.person.title)}">
-  <meta property="og:description" content="">
+  <meta property="og:description" content="&#8203;">
   <meta property="og:image" content="${siteOrigin}/assets/brand/social-preview.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
@@ -36,7 +36,7 @@ const document = (title, body, pathname = '/', {noindex = false, description = s
   <meta property="og:image:alt" content="${esc(data.brand.name)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${esc(data.person.name)} · ${esc(data.person.title)}">
-  <meta name="twitter:description" content="">
+  <meta name="twitter:description" content="&#8203;">
   <meta name="twitter:image" content="${siteOrigin}/assets/brand/social-preview.png">
   <meta name="twitter:image:alt" content="${esc(data.brand.name)}">` : ''}
   ${noindex ? '' : `<script type="application/ld+json">${structuredData({data,title,pathname,description,article,articles})}</script>`}
