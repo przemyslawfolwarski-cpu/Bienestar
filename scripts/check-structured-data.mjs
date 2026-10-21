@@ -4,7 +4,7 @@ import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const source = JSON.parse(await readFile(path.join(root,'source/site_content.json'),'utf8'));
-const articles = JSON.parse(await readFile(path.join(root,'source/articles.json'),'utf8')).filter(a=>a.approved);
+const articles = JSON.parse(await readFile(path.join(root,'source/articles.json'),'utf8')).filter(a=>a.approved).sort((a,b)=>b.date.localeCompare(a.date));
 const origin = 'https://przemyslawfolwarski.pl';
 const pages = ['/', '/czytelnia/', ...articles.map(a=>'/czytelnia/'+a.slug+'/')];
 for (const pathname of pages) {
@@ -46,3 +46,4 @@ const error=await readFile(path.join(root,'public/404.html'),'utf8');
 assert.ok(!error.includes('application/ld+json'),'404 must not describe a real page');
 assert.ok(error.includes('content="noindex"'));
 console.log('PASS: schema on all 11 canonical pages, exact authorship/text/dates, collection order, no invented qualifications or article images, no schema on 404.');
+

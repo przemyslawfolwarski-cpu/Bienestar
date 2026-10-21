@@ -79,7 +79,7 @@ const body = `<main id="main">
 await writeFile(path.join(root, 'public/index.html'), document(`${data.person.name} · ${data.person.title}`, body));
 
 
-const articles = JSON.parse(await readFile(path.join(root, 'source/articles.json'), 'utf8')).filter(a => a.approved === true);
+const articles = JSON.parse(await readFile(path.join(root, 'source/articles.json'), 'utf8')).filter(a => a.approved === true).sort((a,b)=>b.date.localeCompare(a.date));
 const slugs = new Set();
 const dateLabel = value => new Intl.DateTimeFormat('pl-PL', {day:'numeric', month:'long', year:'numeric', timeZone:'UTC'}).format(new Date(value + 'T12:00:00Z'));
 const back = '<a class="reading-back" href="/">← Strona główna</a>';
@@ -105,3 +105,4 @@ const urls = ['/', '/czytelnia/', ...articles.map(articleLink)];
 await writeFile(path.join(root,'public/sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls.map(url=>`  <url><loc>${siteOrigin}${url}</loc></url>`).join('\n') + '\n</urlset>\n');
 await writeFile(path.join(root,'public/robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${siteOrigin}/sitemap.xml\n`);
 await writeFile(path.join(root,'public/404.html'), document('404', `<main class="container reading"><h1>404</h1>${back}</main>`, '/404.html', {noindex:true}));
+

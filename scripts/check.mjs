@@ -82,4 +82,15 @@ for (const page of [readingPage,...await Promise.all(articles.map(a=>readFile(pa
   assert.ok(page.includes('<body class="reading-view">'));
   assert.ok(!page.includes('class="reading-back"'),'Remove duplicate inline home link');
 }
+const newestFirst = [...articles].filter(a=>a.approved).sort((a,b)=>b.date.localeCompare(a.date));
+const listingDates = [...readingPage.matchAll(/<time class="reading-date" datetime="([^"]+)"/g)].map(m=>m[1]);
+assert.deepEqual(listingDates,newestFirst.map(a=>a.date),'Reading list must show newest dates first');
+for (const [i,a] of newestFirst.entries()) {
+  const page=await readFile(path.join(root,'public/czytelnia',a.slug,'index.html'),'utf8');
+  const nav=page.split('<nav class="reading-nav">')[1].split('</nav>')[0];
+  const links=[...nav.matchAll(/href="([^"]+)"/g)].map(m=>m[1]);
+  const expected=[newestFirst[i-1],newestFirst[i+1]].filter(Boolean).map(a=>'/czytelnia/'+a.slug+'/');
+  assert.deepEqual(links,expected,'Article navigation must follow the newest-first list');
+}
 await import('./check-structured-data.mjs');
+
