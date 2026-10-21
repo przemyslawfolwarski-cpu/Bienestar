@@ -45,5 +45,5 @@ for (const pathname of pages) {
 const error=await readFile(path.join(root,'public/404.html'),'utf8');
 assert.ok(!error.includes('application/ld+json'),'404 must not describe a real page');
 assert.ok(error.includes('content="noindex"'));
-console.log('PASS: schema on all 11 canonical pages, exact authorship/text/dates, collection order, no invented qualifications or article images, no schema on 404.');
+console.log(`PASS: schema on all ${pages.length} canonical pages, exact authorship/text/dates, collection order, no invented qualifications or article images, no schema on 404.`);
 

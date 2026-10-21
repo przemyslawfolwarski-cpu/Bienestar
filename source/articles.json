@@ -1,6 +1,23 @@
 [
   {
     "approved": true,
+    "post": 10,
+    "title": "Czy wszystko w sobie trzeba naprawiać?",
+    "slug": "czy-wszystko-w-sobie-trzeba-naprawiac",
+    "date": "2026-10-21",
+    "paragraphs": [
+      "Łatwo przyzwyczaić się do myślenia o sobie w kategoriach rzeczy do poprawienia.",
+      "Za bardzo się przejmuję. Za długo analizuję. Potrzebuję więcej czasu. Za mało ćwiczę. Muszę jeść zdrowiej. Powinienem lepiej radzić sobie ze stresem, być bardziej konsekwentny, lepiej wykorzystywać czas i w ogóle więcej nad sobą pracować.",
+      "Niektóre z tych rzeczy rzeczywiście mogą utrudniać życie i warto się im przyglądać. Zastanawia mnie jednak, jak często przed próbą zmiany sprawdzamy, czy to, co chcemy w sobie poprawić, rzeczywiście stanowi dla nas problem.",
+      "Być może przeszkadza nam brak ruchu, bo gorzej się czujemy, szybciej się męczymy i chcielibyśmy mieć więcej siły. To jest dość konkretne. Można też dojść do wniosku, że ćwiczy się za mało dlatego, że ktoś znajomy trenuje pięć razy w tygodniu, kolejna osoba właśnie przebiegła półmaraton, a telefon od kilku dni pokazuje ludzi, którzy wstają o piątej rano, ćwiczą, medytują, jedzą idealne śniadanie i najwyraźniej zdążyli już uporządkować całe swoje życie przed ósmą.",
+      "Porównywanie się z innymi samo w sobie może oczywiście dostarczyć ważnej informacji. Cudzy komentarz również może zwrócić uwagę na coś, czego wcześniej nie zauważaliśmy. Pytanie, co dzieje się później. Czy sprawdzamy, czy rzeczywiście ma to znaczenie w naszym własnym życiu, czy od razu dopisujemy kolejną pozycję do listy rzeczy wymagających naprawy?",
+      "Łatwo się w tej pracy nad sobą zagalopować. Zaczynamy od rzeczy, które faktycznie nam przeszkadzają, a po pewnym czasie wewnętrzny krytyk dość sprawnie potrafi znaleźć kolejną rzecz do poprawienia. Potem jeszcze jedną. I jeszcze jedną.",
+      "W pewnym momencie praca nad sobą może zacząć przypominać czepianie się siebie.",
+      "Można przez lata próbować mniej się przejmować, szybciej decydować, być bardziej towarzyskim, bardziej zdyscyplinowanym albo bardziej produktywnym, a czas na sen i zmęczenie wpisać w kalendarz. Część z tego być może rzeczywiście warto zmienić."
+    ]
+  },
+  {
+    "approved": true,
     "post": 9,
     "title": "Kiedy własne „nie” przychodzi po czasie",
     "slug": "kiedy-wlasne-nie-przychodzi-po-czasie",
@@ -175,4 +192,3 @@
     ]
   }
 ]
-

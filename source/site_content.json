@@ -9,8 +9,7 @@
     "phone_display": "+48 570 027 154",
     "phone_href": "tel:+48570027154",
     "nip": "125 157 18 64",
-    "bank_account": "80 1140 2004 0000 3702 8442 1495",
-    "public_location": "Warszawa · spotkania online"
+    "public_location": "Warszawa online"
   },
   "sections": [
     {
@@ -107,11 +106,11 @@
     ],
     "middle": [
       "Telefon: +48 570 027 154",
-      "NIP: 125 157 18 64 · Nr rachunku: 80 1140 2004 0000 3702 8442 1495"
+      "NIP: 125 157 18 64"
     ],
     "right": [
       "© 2026 Przemysław Folwarski",
-      "Warszawa · spotkania online"
+      "Warszawa online"
     ]
   }
 }

@@ -2,7 +2,7 @@
 
 The homepage is generated from `site_content.json`. `BUILD_SOURCE_OF_TRUTH.md` controls the approved layout; source references were delivered in `Bienestar_BUILD_FOR_WORK_NO_FONTS.zip`.
 
-Run `npm run build`, then `npm run check`. Commit generated `public/index.html` together with source changes. Cloudflare Pages is configured to publish `public/` on pushes to `main`; its existing build command checks that `public/index.html` exists. No dependency installation, framework, server runtime or paid services are required. `npm run preview` serves the site on http://localhost:4173.
+Run `npm run build`, then `npm run check`. Cloudflare Pages runs `node scripts/build.mjs && node scripts/check.mjs` on pushes to `main` and publishes `public/` only if these checks pass. For new posts, commit `source/articles.json`; generated HTML and the shared footer do not need to be committed again. See `PUBLISHING.md` for the current workflow. No dependency installation, framework, server runtime or paid services are required. `npm run preview` serves the site on http://localhost:4173.
 
 All text is Linux Libertine, self-hosted from the original OTF files in the CTAN libertine package: https://ctan.org/pkg/libertine . Font family metadata: Linux Libertine O. Source archive: https://mirrors.ctan.org/fonts/libertine.zip . License and GPL font exception are distributed beside the fonts. The supplied wordmark remains an image.
 
