@@ -70,7 +70,11 @@ for (const article of articles) {
   if (article.facebook_url) assert.ok(page.includes(`<h1><a class="reading-facebook-title" href="${article.facebook_url.replace(/&/g,'&amp;')}"`),'Article heading must link to its original Facebook post');
   assert.equal(articleFooter, footer, 'Footer content, layout and snippet rules must be identical');
   const text = clean(page.match(/<article>[\s\S]*?<\/article>/)[0]);
-  assert.ok(text.endsWith([article.title,...article.paragraphs].join(' ')), 'Article content must be verbatim');
+  assert.ok(text.endsWith([article.title,`${source.person.name}, ${source.person.title.toLocaleLowerCase('pl')}`,...article.paragraphs].join(' ')), 'Article content must be verbatim with author byline');
+  assert.ok(page.includes(`href="https://przemyslawfolwarski.pl/#fundamenty" rel="author"`),'Byline must link to author qualifications');
+  const relatedSection = page.match(/<aside class="reading-related"[\s\S]*?<\/aside>/)?.[0] || '';
+  const relatedLinks = [...relatedSection.matchAll(/href="([^"]+)"/g)].map(m=>m[1]);
+  assert.deepEqual(relatedLinks,(article.related_slugs||[]).map(slug=>'/czytelnia/'+slug+'/'),'Related links must match curated local articles');
   assert.ok(!/[—–]/.test(article.title), 'Titles must not contain dashes');
   for (const m of page.matchAll(/href="(\/czytelnia\/[^"#]*)"/g)) await access(path.join(root,'public',m[1],'index.html'));
 }

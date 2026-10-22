@@ -84,6 +84,8 @@ const slugs = new Set();
 const dateLabel = value => new Intl.DateTimeFormat('pl-PL', {day:'numeric', month:'long', year:'numeric', timeZone:'UTC'}).format(new Date(value + 'T12:00:00Z'));
 const back = '<a class="reading-back" href="/">← Strona główna</a>';
 const articleLink = a => `/czytelnia/${a.slug}/`;
+const articlesBySlug = new Map(articles.map(a=>[a.slug,a]));
+const authorByline = `<p class="reading-author"><a href="${siteOrigin}/#fundamenty" rel="author">${esc(data.person.name)}, ${esc(data.person.title.toLocaleLowerCase('pl'))}</a></p>`;
 for (const [i, article] of articles.entries()) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug) || slugs.has(article.slug)) throw new Error('Invalid or duplicate approved article slug');
   if (!article.title || !article.paragraphs?.length || !/^\d{4}-\d{2}-\d{2}$/.test(article.date)) throw new Error('Incomplete approved article');
@@ -93,7 +95,10 @@ for (const [i, article] of articles.entries()) {
   const previous = articles[i-1];
   const next = articles[i+1];
   const navigation = `<nav class="reading-nav">${previous ? `<a href="${articleLink(previous)}">← Poprzedni wpis</a>` : '<span></span>'}${next ? `<a href="${articleLink(next)}">Następny wpis →</a>` : ''}</nav>`;
-  const articleBody = `<main class="container reading reading-article"><article><time class="reading-date" datetime="${article.date}">${esc(dateLabel(article.date))}</time><h1>${readingTitle(article)}</h1><p class="reading-lead">${esc(article.paragraphs[0])}</p><div class="reading-prose">${article.paragraphs.slice(1).map(p=>`<p>${esc(p)}</p>`).join('')}</div></article>${navigation}</main>`;
+  const relatedSlugs = article.related_slugs || [];
+  if (new Set(relatedSlugs).size !== relatedSlugs.length || relatedSlugs.some(slug=>slug===article.slug || !articlesBySlug.has(slug))) throw new Error('Invalid related article');
+  const related = relatedSlugs.length ? `<aside class="reading-related" aria-labelledby="related-heading"><h2 id="related-heading">Powiązane teksty</h2><ul>${relatedSlugs.map(slug=>{const a=articlesBySlug.get(slug);return `<li><a href="${articleLink(a)}">${esc(a.title)}</a></li>`;}).join('')}</ul></aside>` : '';
+  const articleBody = `<main class="container reading reading-article"><article><time class="reading-date" datetime="${article.date}">${esc(dateLabel(article.date))}</time><h1>${readingTitle(article)}</h1>${authorByline}<p class="reading-lead">${esc(article.paragraphs[0])}</p><div class="reading-prose">${article.paragraphs.slice(1).map(p=>`<p>${esc(p)}</p>`).join('')}</div></article>${related}${navigation}</main>`;
   await writeFile(path.join(directory, 'index.html'), document(`${article.title} — ${data.brand.name}`, articleBody, articleLink(article), {article, description: article.paragraphs[0].length > 165 ? article.paragraphs[0].split('. ')[0] + '.' : article.paragraphs[0]}));
 }
 function readingTitle(a) {
