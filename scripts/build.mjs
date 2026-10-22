@@ -98,7 +98,7 @@ for (const [i, article] of articles.entries()) {
   const relatedSlugs = article.related_slugs || [];
   if (new Set(relatedSlugs).size !== relatedSlugs.length || relatedSlugs.some(slug=>slug===article.slug || !articlesBySlug.has(slug))) throw new Error('Invalid related article');
   const related = relatedSlugs.length ? `<aside class="reading-related" aria-labelledby="related-heading"><h2 id="related-heading">Powiązane teksty</h2><ul>${relatedSlugs.map(slug=>{const a=articlesBySlug.get(slug);return `<li><a href="${articleLink(a)}">${esc(a.title)}</a></li>`;}).join('')}</ul></aside>` : '';
-  const articleBody = `<main class="container reading reading-article"><article><time class="reading-date" datetime="${article.date}">${esc(dateLabel(article.date))}</time><h1>${readingTitle(article)}</h1>${authorByline}<p class="reading-lead">${esc(article.paragraphs[0])}</p><div class="reading-prose">${article.paragraphs.slice(1).map(p=>`<p>${esc(p)}</p>`).join('')}</div></article>${related}${navigation}</main>`;
+  const articleBody = `<main class="container reading reading-article"><article><time class="reading-date" datetime="${article.date}">${esc(dateLabel(article.date))}</time><h1>${readingTitle(article)}</h1>${authorByline}<p class="reading-lead">${esc(article.paragraphs[0])}</p><div class="reading-prose">${articleProse(article)}</div></article>${related}${navigation}</main>`;
   await writeFile(path.join(directory, 'index.html'), document(`${article.title} — ${data.brand.name}`, articleBody, articleLink(article), {article, description: article.paragraphs[0].length > 165 ? article.paragraphs[0].split('. ')[0] + '.' : article.paragraphs[0]}));
 }
 function readingTitle(a) {
@@ -107,6 +107,22 @@ function readingTitle(a) {
   if (url.protocol !== 'https:' || !['facebook.com','www.facebook.com'].includes(url.hostname) || url.pathname !== '/permalink.php' || url.searchParams.get('id') !== '61591992776332' || !url.searchParams.get('story_fbid')) throw new Error('Invalid Facebook post link');
   return `<a class="reading-facebook-title" href="${esc(a.facebook_url)}" title="Zobacz post na Facebooku" aria-label="${esc(a.title)} — post na Facebooku">${esc(a.title)}</a>`;
 };
+function articleProse(article) {
+  const headings = article.subheadings || [];
+  if (new Set(headings).size !== headings.length || headings.some(h=>!h || article.paragraphs.slice(1).reduce((n,p)=>n+p.split(h).length-1,0)!==1)) throw new Error('Subheadings must be unique existing body text');
+  return article.paragraphs.slice(1).map(p=>{
+    let remaining = p, html = '';
+    while (remaining) {
+      const next = headings.map(text=>({text,index:remaining.indexOf(text)})).filter(h=>h.index>=0).sort((a,b)=>a.index-b.index)[0];
+      if (!next) {html += `<p>${esc(remaining.trim())}</p>`;break;}
+      const before = remaining.slice(0,next.index).trim();
+      if (before) html += `<p>${esc(before)}</p>`;
+      html += `<h2>${esc(next.text)}</h2>`;
+      remaining = remaining.slice(next.index+next.text.length).trim();
+    }
+    return html;
+  }).join('');
+}
 const entries = articles.map(a=>`<article class="reading-entry"><time class="reading-date" datetime="${a.date}">${esc(dateLabel(a.date))}</time><h2>${readingTitle(a)}</h2><div class="reading-row"><p>${esc(a.paragraphs[0])}</p><a class="reading-more" href="${articleLink(a)}">Czytaj dalej　 →</a></div></article>`).join('');
 await mkdir(path.join(root,'public/czytelnia'),{recursive:true});
 await writeFile(path.join(root,'public/czytelnia/index.html'), document(`Czytelnia — ${data.brand.name}`, `<main class="container reading"><h1>Czytelnia</h1><p class="reading-intro">Teksty o relacji ze sobą, emocjach, granicach<br>i codziennym funkcjonowaniu.</p><div class="reading-list">${entries}</div></main>`, '/czytelnia/', {articles, description: 'Teksty o relacji ze sobą, emocjach, granicach i codziennym funkcjonowaniu.'}));

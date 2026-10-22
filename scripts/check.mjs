@@ -70,6 +70,8 @@ for (const article of articles) {
   if (article.facebook_url) assert.ok(page.includes(`<h1><a class="reading-facebook-title" href="${article.facebook_url.replace(/&/g,'&amp;')}"`),'Article heading must link to its original Facebook post');
   assert.equal(articleFooter, footer, 'Footer content, layout and snippet rules must be identical');
   const text = clean(page.match(/<article>[\s\S]*?<\/article>/)[0]);
+  const subheads = [...page.matchAll(/<h2>([\s\S]*?)<\/h2>/g)].map(m=>decode(m[1]));
+  assert.deepEqual(subheads,article.subheadings||[],'Only selected existing sentences may become subheadings');
   assert.ok(text.endsWith([article.title,`${source.person.name}, ${source.person.title.toLocaleLowerCase('pl')}`,...article.paragraphs].join(' ')), 'Article content must be verbatim with author byline');
   assert.ok(page.includes(`href="https://przemyslawfolwarski.pl/#fundamenty" rel="author"`),'Byline must link to author qualifications');
   const relatedSection = page.match(/<aside class="reading-related"[\s\S]*?<\/aside>/)?.[0] || '';
