@@ -84,6 +84,10 @@ for (const page of [readingPage,...await Promise.all(articles.map(a=>readFile(pa
 }
 const newestFirst = [...articles].filter(a=>a.approved).sort((a,b)=>b.date.localeCompare(a.date));
 const listingDates = [...readingPage.matchAll(/<time class="reading-date" datetime="([^"]+)"/g)].map(m=>m[1]);
+const facebookLinks = [...readingPage.matchAll(/class="reading-facebook-title" href="([^"]+)"/g)].map(m=>decode(m[1]));
+assert.deepEqual(facebookLinks,newestFirst.filter(a=>a.facebook_url).map(a=>a.facebook_url),'Facebook title links must match approved post URLs in reading order');
+const readingLinks = [...readingPage.matchAll(/class="reading-more" href="([^"]+)"/g)].map(m=>m[1]);
+assert.deepEqual(readingLinks,newestFirst.map(a=>'/czytelnia/'+a.slug+'/'),'Read-more links must continue opening local articles');
 assert.deepEqual(listingDates,newestFirst.map(a=>a.date),'Reading list must show newest dates first');
 for (const [i,a] of newestFirst.entries()) {
   const page=await readFile(path.join(root,'public/czytelnia',a.slug,'index.html'),'utf8');

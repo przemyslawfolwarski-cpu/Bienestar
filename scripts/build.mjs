@@ -96,7 +96,13 @@ for (const [i, article] of articles.entries()) {
   const articleBody = `<main class="container reading reading-article"><article><time class="reading-date" datetime="${article.date}">${esc(dateLabel(article.date))}</time><h1>${esc(article.title)}</h1><p class="reading-lead">${esc(article.paragraphs[0])}</p><div class="reading-prose">${article.paragraphs.slice(1).map(p=>`<p>${esc(p)}</p>`).join('')}</div></article>${navigation}</main>`;
   await writeFile(path.join(directory, 'index.html'), document(`${article.title} — ${data.brand.name}`, articleBody, articleLink(article), {article, description: article.paragraphs[0].length > 165 ? article.paragraphs[0].split('. ')[0] + '.' : article.paragraphs[0]}));
 }
-const entries = articles.map(a=>`<article class="reading-entry"><time class="reading-date" datetime="${a.date}">${esc(dateLabel(a.date))}</time><h2>${esc(a.title)}</h2><div class="reading-row"><p>${esc(a.paragraphs[0])}</p><a class="reading-more" href="${articleLink(a)}">Czytaj dalej　 →</a></div></article>`).join('');
+const readingTitle = a => {
+  if (!a.facebook_url) return esc(a.title);
+  const url = new URL(a.facebook_url);
+  if (url.protocol !== 'https:' || !['facebook.com','www.facebook.com'].includes(url.hostname) || url.pathname !== '/permalink.php' || url.searchParams.get('id') !== '61591992776332' || !url.searchParams.get('story_fbid')) throw new Error('Invalid Facebook post link');
+  return `<a class="reading-facebook-title" href="${esc(a.facebook_url)}" title="Zobacz post na Facebooku" aria-label="${esc(a.title)} — post na Facebooku">${esc(a.title)}</a>`;
+};
+const entries = articles.map(a=>`<article class="reading-entry"><time class="reading-date" datetime="${a.date}">${esc(dateLabel(a.date))}</time><h2>${readingTitle(a)}</h2><div class="reading-row"><p>${esc(a.paragraphs[0])}</p><a class="reading-more" href="${articleLink(a)}">Czytaj dalej　 →</a></div></article>`).join('');
 await mkdir(path.join(root,'public/czytelnia'),{recursive:true});
 await writeFile(path.join(root,'public/czytelnia/index.html'), document(`Czytelnia — ${data.brand.name}`, `<main class="container reading"><h1>Czytelnia</h1><p class="reading-intro">Teksty o relacji ze sobą, emocjach, granicach<br>i codziennym funkcjonowaniu.</p><div class="reading-list">${entries}</div></main>`, '/czytelnia/', {articles, description: 'Teksty o relacji ze sobą, emocjach, granicach i codziennym funkcjonowaniu.'}));
 console.log(`Built approved homepage and ${slugs.size} approved Czytelnia articles.`);
