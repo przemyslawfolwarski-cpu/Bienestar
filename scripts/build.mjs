@@ -93,10 +93,10 @@ for (const [i, article] of articles.entries()) {
   const previous = articles[i-1];
   const next = articles[i+1];
   const navigation = `<nav class="reading-nav">${previous ? `<a href="${articleLink(previous)}">← Poprzedni wpis</a>` : '<span></span>'}${next ? `<a href="${articleLink(next)}">Następny wpis →</a>` : ''}</nav>`;
-  const articleBody = `<main class="container reading reading-article"><article><time class="reading-date" datetime="${article.date}">${esc(dateLabel(article.date))}</time><h1>${esc(article.title)}</h1><p class="reading-lead">${esc(article.paragraphs[0])}</p><div class="reading-prose">${article.paragraphs.slice(1).map(p=>`<p>${esc(p)}</p>`).join('')}</div></article>${navigation}</main>`;
+  const articleBody = `<main class="container reading reading-article"><article><time class="reading-date" datetime="${article.date}">${esc(dateLabel(article.date))}</time><h1>${readingTitle(article)}</h1><p class="reading-lead">${esc(article.paragraphs[0])}</p><div class="reading-prose">${article.paragraphs.slice(1).map(p=>`<p>${esc(p)}</p>`).join('')}</div></article>${navigation}</main>`;
   await writeFile(path.join(directory, 'index.html'), document(`${article.title} — ${data.brand.name}`, articleBody, articleLink(article), {article, description: article.paragraphs[0].length > 165 ? article.paragraphs[0].split('. ')[0] + '.' : article.paragraphs[0]}));
 }
-const readingTitle = a => {
+function readingTitle(a) {
   if (!a.facebook_url) return esc(a.title);
   const url = new URL(a.facebook_url);
   if (url.protocol !== 'https:' || !['facebook.com','www.facebook.com'].includes(url.hostname) || url.pathname !== '/permalink.php' || url.searchParams.get('id') !== '61591992776332' || !url.searchParams.get('story_fbid')) throw new Error('Invalid Facebook post link');

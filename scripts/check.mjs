@@ -67,6 +67,7 @@ assert.ok(html.includes(`<title>${source.person.name} · ${source.person.title}<
 for (const article of articles) {
   const page = await readFile(path.join(root,'public/czytelnia',article.slug,'index.html'),'utf8');
   const articleFooter = page.match(/<footer[\s\S]*?<\/footer>/)[0];
+  if (article.facebook_url) assert.ok(page.includes(`<h1><a class="reading-facebook-title" href="${article.facebook_url.replace(/&/g,'&amp;')}"`),'Article heading must link to its original Facebook post');
   assert.equal(articleFooter, footer, 'Footer content, layout and snippet rules must be identical');
   const text = clean(page.match(/<article>[\s\S]*?<\/article>/)[0]);
   assert.ok(text.endsWith([article.title,...article.paragraphs].join(' ')), 'Article content must be verbatim');
