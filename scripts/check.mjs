@@ -104,4 +104,5 @@ for (const [i,a] of newestFirst.entries()) {
   assert.deepEqual(links,expected,'Article navigation must follow the newest-first list');
 }
 await import('./check-structured-data.mjs');
+await import('./check-security.mjs');
 
