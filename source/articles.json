@@ -1,6 +1,34 @@
 [
   {
     "approved": true,
+    "post": 11,
+    "title": "„Taki już jestem”",
+    "slug": "taki-juz-jestem",
+    "date": "2026-11-03",
+    "paragraphs": [
+      "Czasem mówimy o sobie rzeczy z taką pewnością, jakby były wynikiem wieloletnich badań.",
+      "„Jestem leniwy.” „Za bardzo się przejmuję.” „Nie umiem być systematyczny.” „Zawsze przesadzam.” „Jestem trudny.” „Taki już jestem.”",
+      "Tylko skąd właściwie to wiemy?",
+      "Część wiedzy o sobie rzeczywiście bierze się z obserwacji własnego zachowania. Jeśli od lat odkładam większość rzeczy na ostatnią chwilę, trudno udawać, że nie ma tu żadnego wzorca. Jeśli w wielu relacjach wycofuję się z konfliktu albo bardzo długo analizuję to, co powiedziała druga osoba, również zdobywam jakąś informację o sobie.",
+      "Ważne wydaje mi się jednak rozróżnienie pomiędzy informacją o naszym sposobie funkcjonowania a opisem nas samych.",
+      "„Często odkładam rzeczy na później” mówi coś o moim zachowaniu. „Jestem leniwy” mówi już coś o tym, kim jestem.",
+      "Różnica może wydawać się niewielka, dopóki opis nie zacznie pełnić funkcji odpowiedzi na wszystko.",
+      "Nie zrobiłem tego, bo jestem niesystematyczny. Nie odezwałem się, bo jestem nieśmiały. Nie spróbowałem, bo przecież zawsze rezygnuję. Taki już jestem.",
+      "Co jeśli ten sposób funkcjonowania rzeczywiście mi przeszkadza? Jeżeli coś kosztuje mnie relacje, możliwości, spokój albo zwyczajnie utrudnia życie, ale jednocześnie opisuję to jako stałą cechę siebie, z którą właściwie nie ma już czego robić?",
+      "Opis może wtedy przestać pomagać w rozumieniu siebie, a zamykać temat, co tworzy błędne koło.",
+      "Do tego część takich zdań wcale nie musi mieć początku w naszych własnych obserwacjach. Rodzic, nauczyciel, partner, przełożony albo ktoś, czyje zdanie jest lub było dla nas ważne, mógł kiedyś powiedzieć: „jesteś przewrażliwiony”, „wszystko komplikujesz”, „nigdy niczego nie kończysz”. Czasem takie komentarze trafiają w coś rzeczywistego. Czasem nie. Z czasem jednak można przestać pamiętać, skąd właściwie dany opis się wziął, i zacząć wypowiadać go własnym głosem.",
+      "Im bardziej jesteśmy do jakiegoś opisu przywiązani, tym łatwiej również zauważać to, co go potwierdza. Trzy niedokończone sprawy dobrze pasują do „jestem niesystematyczny”. Dziesięć rzeczy doprowadzonych do końca może już nie przyciągać należytej uwagi.",
+      "Być może więc warto czasem sprawdzić nie tylko, co o sobie wiemy, ale również w jaki sposób tę wiedzę zdobyliśmy.",
+      "Czy jest to opis zachowania, które pojawia się w określonych sytuacjach? I czy „taki jestem” rzeczywiście coś wyjaśnia, czy czasem po prostu kończy dalsze pytania?"
+    ],
+    "facebook_url": "https://facebook.com/permalink.php?story_fbid=pfbid02TXYQ527YZ8RKjP61tFaQRy962Urisc3q7wvY3sEKQrQYgEJfKtdTbBZC8uXanCJSl&id=61591992776332",
+    "related_slugs": [
+      "czy-wszystko-w-sobie-trzeba-naprawiac",
+      "kiedy-wlasne-nie-przychodzi-po-czasie"
+    ]
+  },
+  {
+    "approved": true,
     "post": 10,
     "title": "Czy wszystko w sobie trzeba naprawiać?",
     "slug": "czy-wszystko-w-sobie-trzeba-naprawiac",
@@ -203,3 +231,4 @@
     ]
   }
 ]
+
