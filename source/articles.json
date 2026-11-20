@@ -1,6 +1,31 @@
 [
   {
     "approved": true,
+    "post": 12,
+    "title": "Poczucie winy nie zawsze oznacza, że zrobiliśmy coś niewłaściwego",
+    "slug": "poczucie-winy-nie-zawsze-oznacza-ze-zrobilismy-cos-niewlasciwego",
+    "date": "2026-11-20",
+    "paragraphs": [
+      "Po odmowie, zmianie zdania albo postawieniu granicy można poczuć się winnym, mimo że trudno wskazać, komu właściwie stała się krzywda.",
+      "Nie przyjechałem, choć ktoś na mnie liczył. Nie odebrałem telefonu, bo nie miałem już ochoty rozmawiać. Odmówiłem kolejnego zadania. Powiedziałem, że tym razem nie pomogę. Zrobiłem coś inaczej, niż druga osoba się spodziewała.",
+      "Poczucie winy może być ważną informacją. Kiedy rzeczywiście kogoś skrzywdziliśmy, złamaliśmy zobowiązanie albo zachowaliśmy się w sposób sprzeczny z własnymi wartościami, może skłaniać do zatrzymania się, naprawienia szkody czy przeprosin.",
+      "Samo pojawienie się tego uczucia nie rozstrzyga jednak, że zrobiliśmy coś niewłaściwego.",
+      "Jeśli przez długi czas było się osobą dostępną, pomocną, odpowiedzialną za dobrą atmosferę albo taką, która „nie robi problemów”, odejście od tej roli może wywoływać dyskomfort nawet wtedy, gdy nikogo nie krzywdzimy. Możemy po prostu zrobić coś, do czego inni nie byli przyzwyczajeni albo czego od nas nie oczekiwali.",
+      "Czasem różnica jest dość subtelna: można przekroczyć czyjąś granicę, ale można też jedynie nie spełnić czyjegoś oczekiwania. Z perspektywy własnego poczucia winy oba doświadczenia mogą być zaskakująco podobne.",
+      "Dlatego interesuje mnie pytanie, co właściwie wydarzyło się przed pojawieniem się poczucia winy.",
+      "Czy zrobiłem komuś coś krzywdzącego?",
+      "Czy nie dotrzymałem czegoś, do czego się zobowiązałem?",
+      "Czy może po prostu powiedziałem „nie”, zmieniłem zdanie albo przestałem robić coś, czego ktoś ode mnie oczekiwał?",
+      "Poczucie winy może mówić coś ważnego o naszych wartościach, relacjach i przyzwyczajeniach. Nie zawsze mówi jednak, kto ma rację."
+    ],
+    "facebook_url": "https://facebook.com/permalink.php?story_fbid=pfbid0h3u8QybJ1TyUihHKHUYn3fjCVp91AXzvqS4QrF9p1NHEdfJMQz7LtTpQGDeCFHWsl&id=61591992776332",
+    "related_slugs": [
+      "kiedy-wlasne-nie-przychodzi-po-czasie",
+      "spokoj-na-teraz"
+    ]
+  },
+  {
+    "approved": true,
     "post": 11,
     "title": "„Taki już jestem”",
     "slug": "taki-juz-jestem",
